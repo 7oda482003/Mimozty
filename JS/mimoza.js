@@ -147,3 +147,37 @@ function createEmoji() {
 }
 
 setInterval(createEmoji, 400);
+
+
+const video = document.getElementById("myVideo");
+const playBtn = document.getElementById("playBtn");
+
+// تشغيل الفيديو عند الضغط على الزر
+playBtn.addEventListener("click", () => {
+  video.play();
+  playBtn.style.display = "none";
+});
+
+// إظهار الزر لما الفيديو يتوقف
+video.addEventListener("pause", () => {
+  playBtn.style.display = "block";
+});
+
+// لما الفيديو يخلص
+video.addEventListener("ended", () => {
+  playBtn.style.display = "block";
+});
+
+// إيقاف الفيديو عند الخروج من الشاشة (scroll)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      video.pause();
+      playBtn.style.display = "block";
+    }
+  });
+}, {
+  threshold: 0.5
+});
+
+observer.observe(video);
