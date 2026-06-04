@@ -149,15 +149,17 @@ footer {
     position: relative;
     width:97%;
     margin: 5px auto;
+    overflow: hidden;
 }
 
 .video-container video {
     width:100%;
     border:none;
     border-radius: 20px;
+    z-index: 1;
 }
 
-.playBtn {
+.video-container .playBtn {
   position: absolute;
   top: 50%;
   left: 50%;
