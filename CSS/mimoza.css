@@ -30,7 +30,8 @@ body {
     position: absolute;
     content: "";
     z-index: 100;
-    height: 95vh;
+    height: 90vh;
+    bottom: 0;
 }
 
 .start .image::before {
@@ -162,7 +163,21 @@ footer {
     z-index: 1;
 }
 
+.information .insta {
+    width: 95%;
+    height: fit-content;
+    position: relative;
+    margin: 5px auto;
+    overflow: hidden;
+}
 
+.information .insta video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 20px;
+    z-index: 1;
+}
 
 
 
@@ -178,6 +193,6 @@ footer {
         right: 6%;
     }
     .orbit3d{
-    left: 57%;
+    left: 58%;
     }
 }
