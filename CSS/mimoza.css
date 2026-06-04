@@ -108,10 +108,50 @@ body {
     color: #b23a48;
 }
 
-.age {
-    text-align: center;
+.age{
+    gap: 15px;
 }
 
+.age-box{
+    width: 120px;
+    height: 150px;
+
+    background-image: url("../images/frame.png"); /* غير الاسم حسب صورتك */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+}
+
+.age-box p{
+    margin-top: -20px;
+    color: #b03a5b;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.age-box span{
+    margin-top: 10px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.age-box hr {
+    width: 70%;
+    height: 2px;
+    margin: 7px 0 -1px;
+    background-color: #b03a5b;
+    border: none;
+}
 
 .heart-container {
     position: relative;
@@ -159,22 +199,6 @@ footer {
 .video-container video {
     width:100%;
     border:none;
-    border-radius: 20px;
-    z-index: 1;
-}
-
-.information .insta {
-    width: 95%;
-    height: fit-content;
-    position: relative;
-    margin: 5px auto;
-    overflow: hidden;
-}
-
-.information .insta video {
-    width: 100%;
-    height: 100%;
-    border: none;
     border-radius: 20px;
     z-index: 1;
 }
