@@ -157,21 +157,6 @@ videos.forEach(container => {
   const video = container.querySelector(".myVideo");
   const playBtn = container.querySelector(".playBtn");
 
-  // تشغيل الفيديو
-  playBtn.addEventListener("click", () => {
-    video.play();
-    playBtn.style.display = "none";
-  });
-
-  // إظهار الزر لما الفيديو يوقف
-  video.addEventListener("pause", () => {
-    playBtn.style.display = "block";
-  });
-
-  video.addEventListener("ended", () => {
-    playBtn.style.display = "block";
-  });
-
   // وقف الفيديو عند الخروج من الشاشة
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
