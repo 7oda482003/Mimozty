@@ -93,18 +93,30 @@ body {
     color: #3a2d32;
 }
 
-.for-me {
+.for_me {
     height: fit-content;
     padding: 10px;
     margin: 5px;
-    width: 90%;
+    width: 95%;
     background-color: #ffffff;
     border-radius: 20px;
     text-align: center;
     border: 1px solid #ffd6de;
     box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
 }
-.for-me p {
+
+.for-me {
+    height: fit-content;
+    padding: 10px;
+    margin: 5px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #ffd6de;
+    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
+}
+.for-me p,
+.for_me p {
     font-family: "poppins", sans-serif;
     color: #b23a48;
 }
