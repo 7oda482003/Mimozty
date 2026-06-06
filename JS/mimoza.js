@@ -171,3 +171,27 @@ videos.forEach(container => {
 
   observer.observe(video);
 });
+
+
+
+
+
+function checkLogin(){
+
+    const username =
+    document.getElementById("username").value.trim();
+
+    const password =
+    document.getElementById("password").value.trim();
+
+    if(username === "mimozty" && password === "18022007"){
+
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("website-content").style.display = "block";
+
+    }else{
+
+        document.getElementById("error-msg").innerText =
+        "اسم المستخدم أو كلمة المرور غير صحيحة";
+    }
+}
