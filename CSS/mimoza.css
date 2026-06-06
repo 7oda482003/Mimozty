@@ -73,9 +73,9 @@ body {
     width: 95%;
     height: fit-content;
     padding: 8px 10px;
-    margin: 5px 0;
+    margin: 2px 0;
     background-color: #fffafc;
-    border-radius: 20px;
+    border-radius: 8px;
     display: grid;
     grid-template-columns: 1fr 2px 3fr;
     gap: 20px;
@@ -96,10 +96,10 @@ body {
 .for_me {
     height: fit-content;
     padding: 10px;
-    margin: 5px;
+    margin: 2px;
     width: 95%;
     background-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 8px;
     text-align: center;
     border: 1px solid #ffd6de;
     box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
@@ -108,9 +108,9 @@ body {
 .for-me {
     height: fit-content;
     padding: 10px;
-    margin: 5px;
+    margin: 2px;
     background-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 8px;
     text-align: center;
     border: 1px solid #ffd6de;
     box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
@@ -200,19 +200,24 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
+footer p {
+  font-family: "Kaushan Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 
 
 .video-container{
     position: relative;
     width:97%;
-    margin: 5px auto;
+    margin: 2px auto;
     overflow: hidden;
 }
 
 .video-container video {
     width:100%;
     border:none;
-    border-radius: 20px;
+    border-radius: 8px;
     z-index: 1;
 }
 
