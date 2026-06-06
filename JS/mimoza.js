@@ -184,7 +184,7 @@ function checkLogin(){
     const password =
     document.getElementById("password").value.trim();
 
-    if(username === "mimozty" && password === "18022007"){
+    if(username === "ميموزتي" && password === "1822007"){
 
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("website-content").style.display = "block";

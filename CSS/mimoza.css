@@ -234,7 +234,8 @@ footer p {
 }
 
 .login-box{
-    width:320px;
+    width: 75%;
+    max-width:320px;
     padding:30px;
     background:#fff;
     border-radius:20px;
@@ -242,7 +243,7 @@ footer p {
     box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
-.login-box h2{
+.login-box h3{
     color:#b23a48;
     margin-bottom:20px;
 }
@@ -266,7 +267,7 @@ footer p {
     border-radius:10px;
     background:#b23a48;
     color:white;
-    font-size:16px;
+    font-size:20px;
     cursor:pointer;
 }
 
