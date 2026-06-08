@@ -149,20 +149,14 @@ function createEmoji() {
 setInterval(createEmoji, 400);
 
 ////////////////////////////////////
+const videos = document.querySelectorAll("video");
 
+videos.forEach(video => {
 
-const videos = document.querySelectorAll(".video-container");
-
-videos.forEach(container => {
-  const video = container.querySelector(".myVideo");
-  const playBtn = container.querySelector(".playBtn");
-
-  // وقف الفيديو عند الخروج من الشاشة
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) {
         video.pause();
-        playBtn.style.display = "block";
       }
     });
   }, {
@@ -195,3 +189,25 @@ function checkLogin(){
         "اسم المستخدم أو كلمة المرور غير صحيحة";
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const elements = document.querySelectorAll(".reveal");
+
+    function reveal() {
+        const windowHeight = window.innerHeight;
+
+        elements.forEach(el => {
+            const top = el.getBoundingClientRect().top;
+
+            if (top < windowHeight - 100) {
+                el.classList.add("active");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", reveal);
+    reveal(); // أول تحميل
+});
+
