@@ -189,25 +189,3 @@ function checkLogin(){
         "اسم المستخدم أو كلمة المرور غير صحيحة";
     }
 }
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const elements = document.querySelectorAll(".reveal");
-
-    function reveal() {
-        const windowHeight = window.innerHeight;
-
-        elements.forEach(el => {
-            const top = el.getBoundingClientRect().top;
-
-            if (top < windowHeight - 100) {
-                el.classList.add("active");
-            }
-        });
-    }
-
-    window.addEventListener("scroll", reveal);
-    reveal(); // أول تحميل
-});
-

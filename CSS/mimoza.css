@@ -200,6 +200,7 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
+
 footer p,
 .heart-container .mmm {
   font-family:"Great Vibes", cursive;
@@ -296,15 +297,4 @@ footer p,
     .orbit3d{
     left: 50%;
     }
-}
-
-.reveal{
-    opacity:0;
-    transform: translateY(40px);
-    transition: all 0.8s ease;
-}
-
-.reveal.active{
-    opacity:1;
-    transform: translateY(0);
 }
