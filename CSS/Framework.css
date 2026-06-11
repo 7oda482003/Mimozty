@@ -20,6 +20,9 @@
 .p-20 {
     padding: 20px;
 }
+.p-25 {
+    padding: 25px;
+}
 .pt-5 {
     padding-top: 5px;
 }
@@ -110,6 +113,9 @@
 }
 .f_w-600 {
     font-weight: 600;
+}
+.fw-800 {
+    font-weight: 800;
 }
 /* End font */
 /* Start color */

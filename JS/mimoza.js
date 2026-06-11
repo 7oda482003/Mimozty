@@ -1,3 +1,4 @@
+// العمر 
 function calculateAge() {
 
     const birthDate = new Date(2007, 1, 18, 12, 0, 0); // عدّل هنا تاريخ ووقت الميلاد
@@ -60,6 +61,9 @@ setInterval(calculateAge, 1000);
 ///////////////////////////////
 
 
+
+
+// القلوب حوالين الرأس
 const orbit = document.querySelector(".orbit3d");
 
 const emojy = ["🦋","✨","🤍","🌟"];
@@ -112,9 +116,13 @@ function animate(el,startAngle){
     frame();
 }
 
-
 //////////////////////////////
 
+
+
+
+
+// القلوب اللي هتطير عند الرسالة
 const container = document.getElementById("heartContainer");
 
 const emojis = [
@@ -149,6 +157,48 @@ function createEmoji() {
 setInterval(createEmoji, 400);
 
 ////////////////////////////////////
+
+
+
+// رسالة عيد الميلاد
+// القلوب اللي هتطير عند الرسالة
+const container1 = document.getElementById("celebration-birth");
+
+const emojis1 = [
+    "❤️",
+    "🤍",
+    "💕",
+    "💖",
+    "💗",
+    "💘",
+    "🦋",
+    "✨",
+    "🌸",
+    "🥰"
+];
+
+function createEmoji1() {
+    const emoji1 = document.createElement("div");
+
+    emoji1.classList.add("heart");
+    emoji1.innerHTML = emojis[Math.floor(Math.random() * emojis1.length)];
+
+    emoji1.style.left = Math.random() * 100 + "%";
+    emoji1.style.fontSize = (Math.random() * 15 + 20) + "px";
+
+    container1.appendChild(emoji1);
+
+    setTimeout(() => {
+        emoji1.remove();
+    }, 6000);
+}
+
+setInterval(createEmoji1, 400);
+
+
+
+
+// تحكمات الفيديوهات
 const videos = document.querySelectorAll("video");
 
 videos.forEach(video => {
@@ -169,7 +219,7 @@ videos.forEach(video => {
 
 
 
-
+// تسجيل الدخول
 function checkLogin(){
 
     const username =

@@ -1,12 +1,13 @@
-*,
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+
 .start {
     width: 100%;
-    height: 95vh;
+    height: 100vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -19,7 +20,7 @@ body {
 }
 
 .start p {
-    margin-top: 50px;
+    margin-top: 30px;
     font-size: 10rem;
     font-weight: 600;
     color: #135850;
@@ -56,7 +57,7 @@ body {
 
 .orbit3d{
     position:absolute;
-    top: 30%;
+    top: 33%;
     left: 52.5%;
     width:0;
     height:0;
@@ -69,8 +70,13 @@ body {
     transform-origin:center;
 }
 
+.container {
+    width: 100%;
+    padding: 5px;
+}
+
 .rounded {
-    width: 95%;
+    width: 100%;
     height: fit-content;
     padding: 8px 10px;
     margin: 2px 0;
@@ -92,33 +98,32 @@ body {
     text-align: center;
 }
 
-.for_me {
-    height: fit-content;
-    padding: 10px;
-    margin: 2px;
-    width: 95%;
-    background-color: #ffffff;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid #ffd6de;
-    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
-}
-
 .for-me {
+    width: 100%;
     padding: 10px;
-    margin: 2px;
+    margin: 2px 0;
     background-color: #ffffff;
     border-radius: 8px;
     text-align: center;
     border: 1px solid #ffd6de;
     box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25);
 }
-.for-me p,
-.for_me p {
+.for-me p {
     font-family: "poppins", sans-serif;
     color: #b23a48;
+    line-height: 1.5;
 }
 
+.for-me hr {
+    width: 100%;
+    height: 3px;
+    margin-top: 10px;
+    background-color: #b23a48;
+}
+
+
+
+/* العمر */
 .age{
     gap: 15px;
 }
@@ -126,19 +131,15 @@ body {
 .age-box{
     width: 120px;
     height: 150px;
-
     background-image: url("../images/frame.png"); /* غير الاسم حسب صورتك */
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     text-align: center;
-
     position: relative;
 }
 
@@ -150,7 +151,7 @@ body {
 }
 
 .age-box span{
-    margin-top: 10px;
+    margin-top: -13px;
     font-size: 3rem;
     font-weight: bold;
     color: #000;
@@ -159,7 +160,7 @@ body {
 .age-box hr {
     width: 70%;
     height: 2px;
-    margin: 7px 0 -1px;
+    margin: 13px 0;
     background-color: #b03a5b;
     border: none;
 }
@@ -180,6 +181,15 @@ body {
     font-size: 20px;
     animation: floatUp 3s linear forwards;
     opacity: 0.8;
+}
+
+.celebration-birth {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
 }
 
 
@@ -208,9 +218,8 @@ footer p,
 
 
 .video-container{
+    margin: 2px 0;
     position: relative;
-    width:97%;
-    margin: 2px auto;
     overflow: hidden;
 }
 
@@ -234,8 +243,8 @@ footer p,
 }
 
 .login-box{
-    width: 75%;
-    max-width:320px;
+    width: 80%;
+    max-width:350px;
     padding:30px;
     background:#fff;
     border-radius:20px;
@@ -287,13 +296,12 @@ footer p,
     padding: 10px 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
+    justify-content: center;
     gap: 10px;
 }
 
 .for-me .styles .man {
-    width: 50%;
+    width: 20%;
     height: 300px;
 }
 
@@ -315,8 +323,29 @@ footer p,
     border-radius: 6px;
 }
 
+.for-me .heart-birth{
+    font-size:40px;
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.2);
+    }
+}
+
+
+
+
 @media screen and (max-width: 767px) {
+    .start {
+        height: 95vh;
+    }
     .start p {
+        margin-top: 50px;
         font-size: 4rem;
     }
     .start .image {
@@ -324,5 +353,11 @@ footer p,
     }
     .orbit3d{
     left: 50%;
+    }
+    .for-me .styles .man {
+    width: 50%;
+    }
+    .for-me .styles{
+        flex-direction: column;
     }
 }
