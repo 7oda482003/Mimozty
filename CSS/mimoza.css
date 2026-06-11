@@ -57,7 +57,7 @@
 
 .orbit3d{
     position:absolute;
-    top: 33%;
+    top: 31%;
     left: 52.5%;
     width:0;
     height:0;
@@ -172,15 +172,6 @@
     overflow: hidden;
     text-align: center;
     padding: 20px;
-}
-
-/* شكل القلب */
-.heart {
-    position: absolute;
-    bottom: 0;
-    font-size: 20px;
-    animation: floatUp 3s linear forwards;
-    opacity: 0.8;
 }
 
 .celebration-birth {
@@ -352,7 +343,7 @@ footer p,
         right: 20%;
     }
     .orbit3d{
-    left: 50%;
+    left: 49%;
     }
     .for-me .styles .man {
     width: 50%;
