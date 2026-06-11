@@ -239,3 +239,27 @@ function checkLogin(){
         "اسم المستخدم أو كلمة المرور غير صحيحة";
     }
 }
+
+// الرسالة السرية
+
+const secretBtn = document.getElementById("secretBtn");
+const overlay = document.getElementById("overlay");
+const closeBtn = document.getElementById("closeBtn");
+
+secretBtn.addEventListener("click", () => {
+    overlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+});
+
+closeBtn.addEventListener("click", () => {
+    overlay.classList.remove("show");
+    document.body.style.overflow = "auto";
+});
+
+/* قفل عند الضغط خارج المربع */
+overlay.addEventListener("click", (e) => {
+    if(e.target === overlay){
+        overlay.classList.remove("show");
+        document.body.style.overflow = "auto";
+    }
+});
