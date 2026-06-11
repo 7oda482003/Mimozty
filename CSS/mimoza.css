@@ -57,7 +57,7 @@
 
 .orbit3d{
     position:absolute;
-    top: 31%;
+    top: 30%;
     left: 52.5%;
     width:0;
     height:0;
@@ -167,8 +167,7 @@
 
 .heart-container {
     position: relative;
-    width: 90%;
-    height: 200px;
+    width: 100%;
     overflow: hidden;
     text-align: center;
     padding: 20px;
@@ -342,7 +341,7 @@ footer p,
 
 @media screen and (max-width: 767px) {
     .start {
-        height: 94vh;
+        height: 93vh;
     }
     .start p {
         margin-top: 50px;
