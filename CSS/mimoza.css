@@ -57,7 +57,7 @@
 
 .orbit3d{
     position:absolute;
-    top: 30%;
+    top: 28%;
     left: 52.5%;
     width:0;
     height:0;
@@ -80,7 +80,7 @@
     height: fit-content;
     padding: 8px 10px;
     margin: 2px 0;
-    background-color: #fffafc;
+    background-color: #fffafc69;
     border-radius: 8px;
     display: grid;
     grid-template-columns: 1fr 2px 3fr;
@@ -102,7 +102,7 @@
     width: 100%;
     padding: 10px;
     margin: 2px 0;
-    background-color: #ffffff;
+    background-color: #fffafc69;
     border-radius: 8px;
     text-align: center;
     border: 1px solid #ffd6de;
@@ -135,6 +135,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
+    background-color: #fffafc69;
     display: flex;
     flex-direction: column;
     justify-content: center;
