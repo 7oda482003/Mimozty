@@ -337,6 +337,96 @@ footer p,
     }
 }
 
+/* هنجرب */
+
+.story-title{
+    text-align:center;
+    margin-bottom:20px;
+    color:#b23a48;
+}
+
+.story-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:8px;
+}
+
+.story-btn{
+    height: 40px;
+    padding:5px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    background:#f09fa888;
+    color:rgb(61, 33, 33);
+    transition:.3s;
+}
+
+.story-btn:hover{
+    transform:translateY(-3px);
+    background:#b23a48;
+}
+
+/* الخلفية المعتمة */
+.story-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    backdrop-filter:blur(8px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+/* المربع */
+.story-modal{
+    width:90%;
+    height:95vh;
+    background:#fffafc;
+    border-radius:15px;
+    overflow-y:auto;
+    position:relative;
+    padding:20px;
+}
+
+/* زر الغلق */
+.close-story{
+    position:absolute;
+    top:15px;
+    left:15px;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:20px;
+}
+
+/* المحتوى */
+.story-content{
+    text-align:center;
+    margin-top:50px;
+}
+
+.story-content h2{
+    color:#b23a48;
+    margin-bottom:20px;
+}
+
+.story-content p{
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.story-content img{
+    width:100%;
+    max-width:500px;
+    border-radius:15px;
+}
+
+
 
  
 /* الرسالة السرية */
@@ -443,4 +533,7 @@ footer p,
     .for-me .styles{
         flex-direction: column;
     }
+    .story-grid{
+    grid-template-columns:repeat(3,1fr);
+}
 }
