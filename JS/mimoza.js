@@ -58,11 +58,11 @@ calculateAge();
 // تحديث كل ثانية بدون ما تعمل refresh
 setInterval(calculateAge, 1000);
 
-///////////////////////////////
 
 
 
 
+///////////////////////////////////////////////////////////////////////////////////
 // القلوب حوالين الرأس
 const orbit = document.querySelector(".orbit3d");
 
@@ -116,12 +116,12 @@ function animate(el,startAngle){
     frame();
 }
 
-//////////////////////////////
 
 
 
 
 
+///////////////////////////////////////////////////////////////////////////////////
 // القلوب اللي هتطير عند الرسالة
 const container = document.getElementById("heartContainer");
 
@@ -161,6 +161,7 @@ setInterval(createEmoji, 400);
 
 
 
+///////////////////////////////////////////////////////////////////////////////////
 // تحكمات الفيديوهات
 const videos = document.querySelectorAll("video");
 
@@ -182,7 +183,9 @@ videos.forEach(video => {
 
 
 
+///////////////////////////////////////////////////////////////////////////////////
 // تسجيل الدخول
+
 function checkLogin(){
 
     const username =
@@ -192,6 +195,15 @@ function checkLogin(){
     document.getElementById("password").value.trim();
 
     if(username === "ميموزتي" && password === "1822007"){
+
+        const time = new Date().toLocaleString("ar-EG");
+
+        fetch(
+            "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
+            encodeURIComponent(
+                `تم تسجيل دخول جديد للموقع ✅\nالوقت: ${time}`
+            )
+        );
 
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("website-content").style.display = "block";
@@ -203,6 +215,8 @@ function checkLogin(){
     }
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////
 // الرسالة السرية
 
 const secretBtn = document.getElementById("secretBtn");
@@ -227,8 +241,11 @@ overlay.addEventListener("click", (e) => {
     }
 });
 
-console.log("story loaded")
-// هنجرب
+
+
+
+///////////////////////////////////////////////////////////////////////////////////
+// قصتنا
 const storyBtns = document.querySelectorAll(".story-btn");
 const closeBtns = document.querySelectorAll(".close-story");
 

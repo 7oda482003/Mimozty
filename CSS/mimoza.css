@@ -363,11 +363,6 @@ footer p,
     transition:.3s;
 }
 
-.story-btn:hover{
-    transform:translateY(-3px);
-    background:#b23a48;
-}
-
 /* الخلفية المعتمة */
 .story-overlay{
     position:fixed;
@@ -393,14 +388,13 @@ footer p,
 
 /* زر الغلق */
 .close-story{
-    position:absolute;
-    top:15px;
-    right:15px;
+    position:sticky;
+    background: none;
+    top: 0;
+    display: block;
     border:none;
-    border-radius:50%;
     cursor:pointer;
     font-size:22px;
-    background:none;
     z-index:2;
 }
 
@@ -408,7 +402,6 @@ footer p,
 /* المحتوى */
 .story-content{
     text-align:center;
-    margin-top:50px;
 }
 
 .story-content h2{
