@@ -395,14 +395,15 @@ footer p,
 .close-story{
     position:absolute;
     top:15px;
-    left:15px;
-    width:40px;
-    height:40px;
+    right:15px;
     border:none;
     border-radius:50%;
     cursor:pointer;
-    font-size:20px;
+    font-size:22px;
+    background:none;
+    z-index:2;
 }
+
 
 /* المحتوى */
 .story-content{
