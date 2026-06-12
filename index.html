@@ -10,7 +10,7 @@
     <title>ميموزتي🌿</title>
 </head>
 <body>
-    <div id="login-screen">
+    <!-- <div id="login-screen">
         <div class="login-box">
             <h3>أهلا بيكي في عالمنا ي ميموزتي 🌿</h3>
 
@@ -22,10 +22,10 @@
 
             <p id="error-msg"></p>
         </div>
-    </div>
+    </div> -->
 
-    
-    <div id="website-content" style="display:none;">
+    <!-- style="display:none;" -->
+    <div id="website-content" >
         <div class="start">
             <p>ميمــــــــــــوزتي</p>
             <div class="image"><img src="images/666.png" alt=""></div>
@@ -144,8 +144,11 @@
                 <div class="our-story">
 
                     <h2 class="story-title">قصتنا ❤️</h2>
+                    <p>
+                        اضغطي ع كل زر يظهر الكارت
+                    </p><br>
 
-                    <div class="story-grid">
+                    <div class="story-grid" id="storyGrid">
 
                         <button class="story-btn" data-popup="popup1">
                             أول نكشه
@@ -195,12 +198,11 @@
                             اعترافي
                         </button>
 
-                        <button class="story-btn" data-popup="popup13">
-                            22 / 12 / 2025
-                        </button>
-
                     </div>
 
+                    <button class="story-btn" data-popup="popup14" id="addMemoryBtn">
+                        إضافة ذكرى
+                    </button>
                 </div>
 
 
@@ -534,7 +536,7 @@
                             <h2>أولى اعترافاتي</h2>
 
                             <p>
-                                نص الذكرى.
+                                ف كلام هنا مكنش ف بالي ف الطبيعي بس جه ف بالي وأدركت انه عندي فعلاً
                             </p>
 
                             <img src="images/saraha/12.jpg" alt="">
@@ -552,17 +554,46 @@
 
                         <button class="close-story">✖</button>
 
-                        <div class="story-content">
+                        <div class="story-gird">
 
-                            <h2>ذكرى جميلة</h2>
+                            <!-- <h2>أولى اعترافاتي</h2>
 
                             <p>
-                                نص الذكرى.
+                                ف كلام هنا مكنش ف بالي ف الطبيعي بس جه ف بالي وأدركت انه عندي فعلاً
                             </p>
 
-                            <img src="images/333.jpg" alt="">
+                            <img src="images/saraha/12.jpg" alt=""> -->
 
                         </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Popup 14 -->
+                <div class="story-overlay" id="popup14">
+
+                    <div class="story-modal">
+
+                        <button class="close-story">✖</button>
+
+                        <div class="memory-form">
+
+                            <h3>إضافة ذكرى جديدة</h3>
+                            <input type="text" id="memoryName" placeholder="اسم الذكرى">
+                            <input type="text" id="memoryTitle" placeholder="عنوان الذكرى">
+                            <textarea id="memoryText" placeholder="وصف الذكرى">
+
+                            </textarea>
+
+                            <input type="file" id="memoryImage" accept="image/*">
+
+                            <button id="saveMemoryBtn">
+                                إضافة الذكرى
+                            </button>
+
+                        </div>
+
 
                     </div>
 
@@ -677,6 +708,18 @@
                                 </p><br>
                                 <p>
                                     دعواتك انتي بس ربنا ييسر الامر ونكون سوا في القريب العاجل ي ميموزتي🌿 
+                                </p><br>
+                                <p>
+                                    ع فكرة..
+                                </p>
+                                <p>
+                                    ولا ياسمين ولا 100000000000000000000000000000 واحده غيرها تشغلني عنك
+                                </p>
+                                <p>
+                                    العالم كام مليار نساء، بس ولا واحده تشغلني.... 
+                                </p>
+                                <p>
+                                    لأن قلبي وعيني وعقلي وكلي معاكي انتي بس ي روحي😉
                                 </p>
                             </div>
 
@@ -687,7 +730,7 @@
             </div>
         </div>
     </div>
-    <script src="JS/mimoza.js"></script>
+    <script type="module" src="JS/mimoza.js"></script>
     <footer>
         <p class="f-20">🤍 With my all Love </p>
         <p>🌿Mimozty</p>

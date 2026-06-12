@@ -1,3 +1,13 @@
+import {
+  db,
+  collection,
+  addDoc,
+  getDocs
+} from "./firebase.js";
+
+
+
+
 // العمر 
 function calculateAge() {
 
@@ -237,6 +247,9 @@ overlay.addEventListener("click", (e) => {
 });
 
 console.log("story loaded")
+
+
+
 // هنجرب
 const storyBtns = document.querySelectorAll(".story-btn");
 const closeBtns = document.querySelectorAll(".close-story");
@@ -265,3 +278,141 @@ closeBtns.forEach(btn => {
 
 });
 
+// إضافة الذكري
+const saveMemoryBtn =
+document.getElementById("saveMemoryBtn");
+
+if(saveMemoryBtn){
+
+saveMemoryBtn.addEventListener("click", () => {
+
+    const memoryName =
+    document.getElementById("memoryName").value;
+
+    const title =
+    document.getElementById("memoryTitle").value;
+
+    const text =
+    document.getElementById("memoryText").value;
+
+    const image =
+    document.getElementById("memoryImage").files[0];
+
+    if(!memoryName || !title || !text || !image){
+
+        alert("اكمل البيانات");
+
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = async function(e){
+
+        try{
+
+            await addDoc(
+                collection(db, "memories"),
+                {
+                    memoryName,
+                    title,
+                    text,
+                    image: e.target.result,
+                    createdAt: Date.now()
+                }
+            );
+
+            alert("تم حفظ الذكرى ❤️");
+
+            location.reload();
+
+        }catch(error){
+
+            console.error(error);
+
+            alert("حدث خطأ أثناء الحفظ");
+
+        }
+
+    }
+
+    reader.readAsDataURL(image);
+
+});
+
+}
+
+
+
+async function loadMemories(){
+
+    const snapshot =
+    await getDocs(collection(db,"memories"));
+
+    snapshot.forEach((doc)=>{
+
+        const memory = doc.data();
+
+        const popupId = "popup_" + doc.id;
+
+        const button = document.createElement("button");
+
+        button.className = "story-btn";
+
+        button.textContent = memory.memoryName;
+
+        button.dataset.popup = popupId;
+
+        document
+        .getElementById("storyGrid")
+        .appendChild(button);
+
+        const popup =
+        document.createElement("div");
+
+        popup.className = "story-overlay";
+
+        popup.id = popupId;
+
+        popup.innerHTML = `
+        <div class="story-modal">
+
+            <button class="close-story">✖</button>
+
+            <div class="story-content">
+
+                <h2>${memory.title}</h2>
+
+                <p>${memory.text}</p>
+
+                <img src="${memory.image}">
+
+            </div>
+
+        </div>
+        `;
+
+        document.body.appendChild(popup);
+
+        button.addEventListener("click",()=>{
+
+            popup.style.display="flex";
+
+            document.body.style.overflow="hidden";
+
+        });
+
+        popup.querySelector(".close-story")
+        .addEventListener("click",()=>{
+
+            popup.style.display="none";
+
+            document.body.style.overflow="auto";
+
+        });
+
+    });
+
+}
+
+loadMemories();
