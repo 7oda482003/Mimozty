@@ -4,11 +4,16 @@ import {
   getFirestore,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  updateDoc,
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "ضع نفس apiKey",
+  apiKey: "AIzaSyDol46BKZDeH-rIR-Kof_tbyIiFikL0hQQ",
   authDomain: "mimozty-8ef5d.firebaseapp.com",
   projectId: "mimozty-8ef5d",
   storageBucket: "mimozty-8ef5d.firebasestorage.app",
@@ -18,5 +23,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+console.log("firebase connected");
+
 export const db = getFirestore(app);
-export { collection, addDoc, getDocs };
+export { collection, addDoc, getDocs, query, orderBy, doc, updateDoc, deleteDoc };

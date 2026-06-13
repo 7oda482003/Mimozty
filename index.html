@@ -10,7 +10,7 @@
     <title>ميموزتي🌿</title>
 </head>
 <body>
-    <!-- <div id="login-screen">
+    <div id="login-screen">
         <div class="login-box">
             <h3>أهلا بيكي في عالمنا ي ميموزتي 🌿</h3>
 
@@ -22,10 +22,10 @@
 
             <p id="error-msg"></p>
         </div>
-    </div> -->
+    </div>
 
-    <!-- style="display:none;" -->
-    <div id="website-content" >
+    
+    <div id="website-content" style="display:none;">
         <div class="start">
             <p>ميمــــــــــــوزتي</p>
             <div class="image"><img src="images/666.png" alt=""></div>
@@ -143,11 +143,13 @@
             <div class="for-me">
                 <div class="our-story">
 
-                    <h2 class="story-title">قصتنا ❤️</h2>
+                    <h2 class="story-title">ذكرياتنا ❤️</h2>
                     <p>
                         اضغطي ع كل زر يظهر الكارت
                     </p><br>
-
+                    <div id="loadingContainer">
+                        <div id="loadingBar"></div>
+                    </div>
                     <div class="story-grid" id="storyGrid">
 
                         <button class="story-btn" data-popup="popup1">
@@ -199,7 +201,7 @@
                         </button>
 
                     </div>
-
+                    
                     <button class="story-btn" data-popup="popup14" id="addMemoryBtn">
                         إضافة ذكرى
                     </button>
@@ -231,6 +233,7 @@
                             </p>
 
                         </div>
+                        
 
                     </div>
 
@@ -587,7 +590,10 @@
                             </textarea>
 
                             <input type="file" id="memoryImage" accept="image/*">
-
+                            <div id="extraImagesContainer"></div>
+                            <button type="button" id="addImageBtn">
+                                إضافة صورة أخرى
+                            </button>
                             <button id="saveMemoryBtn">
                                 إضافة الذكرى
                             </button>
@@ -677,13 +683,13 @@
                         <button class="close-btn" id="closeBtn">✖</button>
 
                         <div class="secret-content">
-                            <br><br><br><br><div class="message-card">
+                            <br><br><br><br><br><br><br><div class="message-card">
                                 <h1>الكلام د ليكي انتي بس</h1><br><br>
                                 <h3>
                                     بعد اذنك ي مريم يختشي👀...
                                 </h3>
                             </div>
-                            <br><br><br><br><br><br><br><br><br><hr><br><br><br><br><br><br><br><br><br><br><br>
+                            <br><br><br><br><br><br><br><br><hr><br><br><br><br><br><br><br><br><br><br><br>
                             <div class="message-card">
                                 <h1>ليكي بس هااااااا</h1><br><br>
                                 <h3>
@@ -717,10 +723,10 @@
                                 </p>
                                 <p>
                                     العالم كام مليار نساء، بس ولا واحده تشغلني.... 
-                                </p>
-                                <p>
+                                </p><br>
+                                <span class="c-i">
                                     لأن قلبي وعيني وعقلي وكلي معاكي انتي بس ي روحي😉
-                                </p>
+                                </span>
                             </div>
 
                         </div>

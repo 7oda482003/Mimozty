@@ -353,6 +353,23 @@ footer p,
     padding-bottom: 10px;
 }
 
+#loadingContainer {
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+#loadingBar {
+    width: 0%;
+    height: 100%;
+    background: #800020;
+    transition: 0.3s;
+}
+
+
 .story-btn{
     height: 40px;
     padding:5px;
@@ -446,7 +463,6 @@ footer p,
 
 .memory-form input,
 .memory-form textarea{
-
     padding:15px;
     border:1px solid #ddd;
     border-radius:10px;
@@ -465,6 +481,36 @@ footer p,
     background-color: #f13268;
 }
 
+#extraImagesContainer {
+    width: 100%;
+}
+
+#extraImagesContainer input {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.admin-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.admin-delete-memory,
+.hide-memory {
+    padding: 10px;
+    color: white;
+    background: #135850;
+    border: none;
+    border-radius: 6px;
+}
+
+.deleted-memory {
+    opacity: 0.5;
+    border: 2px dashed #ff4d4d;
+    background: #ffe5e5;
+    color: #a30000;
+}
 
  
 /* الرسالة السرية */
@@ -527,7 +573,7 @@ footer p,
 .secret-content{
     height:100%;
     overflow-y:auto;
-    padding:40px 20px 10px;
+    padding:60px 20px 20px;
 }
 
 /* كروت الرسائل */

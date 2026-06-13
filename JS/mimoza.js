@@ -2,8 +2,15 @@ import {
   db,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  updateDoc,
+  deleteDoc
 } from "./firebase.js";
+
+let isAdmin = false;
 
 
 
@@ -195,32 +202,53 @@ videos.forEach(video => {
 // تسجيل الدخول
 function checkLogin(){
 
+    const time = new Date().toLocaleString("ar-EG")
+
     const username =
     document.getElementById("username").value.trim();
 
     const password =
     document.getElementById("password").value.trim();
+    if(username === "محمود" && password === "1912003"){
 
-    if(username === "ميموزتي" && password === "1822007"){
+        isAdmin = true;
 
-        const time = new Date().toLocaleString("ar-EG");
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("website-content").style.display = "block";
 
-        fetch(
+        loadMemories();
+
+        fetch(
             "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
             encodeURIComponent(
-                `تم تسجيل دخول جديد للموقع ✅\nالوقت: ${time}`
+                `تم تسجيل دخول الأدمن للموقع ✅\nالوقت: ${time}`
             )
         );
 
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("website-content").style.display = "block";
+    }
+    else if(username === "ميموزتي" && password === "1822007"){
 
-    }else{
+        isAdmin = false;
+
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("website-content").style.display = "block";
+
+        loadMemories();
+
+        fetch(
+            "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
+            encodeURIComponent(
+                `تم تسجيل دخول زائر للموقع ✅\nالوقت: ${time}`
+            )
+        );
+
+    }else{
 
         document.getElementById("error-msg").innerText =
         "اسم المستخدم أو كلمة المرور غير صحيحة";
     }
 }
+window.checkLogin = checkLogin;
 
 // الرسالة السرية
 
@@ -278,88 +306,270 @@ closeBtns.forEach(btn => {
 
 });
 
+
+
+
 // إضافة الذكري
+const addImageBtn =
+document.getElementById("addImageBtn");
+
+if(addImageBtn){
+
+    addImageBtn.addEventListener("click",()=>{
+
+        const div =
+        document.createElement("div");
+
+        div.className = "extra-image-item";
+
+        div.innerHTML = `
+
+        <input
+        type="file"
+        class="extraImage"
+        accept="image/*">
+
+        <input
+        type="text"
+        class="extraCaption"
+        placeholder="كابشن الصورة (اختياري)">
+
+        `;
+
+        document
+        .getElementById("extraImagesContainer")
+        .appendChild(div);
+
+    });
+
+}
+
+
+async function compressImage(file){
+
+    return new Promise((resolve)=>{
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+
+            const img = new Image();
+
+            img.onload = function(){
+
+                const canvas =
+                document.createElement("canvas");
+
+                const maxWidth = 1000;
+
+                let width = img.width;
+                let height = img.height;
+
+                if(width > maxWidth){
+
+                    height =
+                    height * (maxWidth / width);
+
+                    width = maxWidth;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx =
+                canvas.getContext("2d");
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+                resolve(
+                    canvas.toDataURL(
+                        "image/jpeg",
+                        0.7
+                    )
+                );
+
+            };
+
+            img.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
 const saveMemoryBtn =
 document.getElementById("saveMemoryBtn");
 
 if(saveMemoryBtn){
 
-saveMemoryBtn.addEventListener("click", () => {
+saveMemoryBtn.addEventListener("click", async () => {
 
     const memoryName =
-    document.getElementById("memoryName").value;
+    document.getElementById("memoryName").value.trim();
 
     const title =
-    document.getElementById("memoryTitle").value;
+    document.getElementById("memoryTitle").value.trim();
 
     const text =
-    document.getElementById("memoryText").value;
+    document.getElementById("memoryText").value.trim();
 
-    const image =
+    const mainImage =
     document.getElementById("memoryImage").files[0];
 
-    if(!memoryName || !title || !text || !image){
+        
+    if(!memoryName || !title || !text){
 
-        alert("اكمل البيانات");
+        alert("اسم الذكرى والعنوان والنص مطلوبين");
 
         return;
     }
+        
+    saveMemoryBtn.disabled = true;
+    saveMemoryBtn.textContent = "جاري الحفظ...";
 
-    const reader = new FileReader();
 
-    reader.onload = async function(e){
+    try{
 
-        try{
+        let mainImageUrl = "";
 
-            await addDoc(
-                collection(db, "memories"),
-                {
-                    memoryName,
-                    title,
-                    text,
-                    image: e.target.result,
-                    createdAt: Date.now()
-                }
-            );
+        if(mainImage){
+            mainImageUrl =
+            await compressImage(mainImage);
+            
+        }
 
-            alert("تم حفظ الذكرى ❤️");
+        const extraImages = [];
 
-            location.reload();
+        const imageInputs =
+        document.querySelectorAll(".extraImage");
 
-        }catch(error){
+        const captionInputs =
+        document.querySelectorAll(".extraCaption");
 
-            console.error(error);
+        for(let i=0;i<imageInputs.length;i++){
 
-            alert("حدث خطأ أثناء الحفظ");
+            const file =
+            imageInputs[i].files[0];
+
+            const caption =
+            captionInputs[i].value.trim();
+
+            if(!file) continue;
+
+            const imageUrl =
+            await compressImage(file);
+
+            extraImages.push({
+
+                image:imageUrl,
+
+                caption:caption
+
+            });
 
         }
 
-    }
+        await addDoc(
+            collection(db,"memories"),
+            {
 
-    reader.readAsDataURL(image);
+                memoryName,
+
+                title,
+
+                text,
+
+                mainImage:mainImageUrl,
+
+                extraImages,
+                createdBy:isAdmin? "admin" : "user",
+                hiddenForUsers:false,
+
+                createdAt:Date.now()
+
+            }
+        );
+        const time = new Date().toLocaleString("ar-EG");
+        fetch(
+            "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
+            encodeURIComponent(
+                `تم اضافة ذكرى جديدة للموقع ✅\n العنوان: ${title} \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \nالوقت: ${time}`
+            )
+        );
+
+        alert("تم حفظ الذكرى ❤️");
+                
+        saveMemoryBtn.disabled = false;
+        saveMemoryBtn.textContent = "إضافة الذكرى";
+
+        document.getElementById("popup14").style.display = "none";
+
+        document.getElementById("memoryName").value = "";
+        document.getElementById("memoryTitle").value = "";
+        document.getElementById("memoryText").value = "";
+        document.getElementById("memoryImage").value = "";
+
+        document.getElementById("extraImagesContainer").innerHTML = "";
+
+    }catch(error){
+
+        console.error(error);
+                
+        saveMemoryBtn.disabled = false;
+        saveMemoryBtn.textContent = "إضافة الذكرى";
+
+        alert("حدث خطأ أثناء الحفظ");
+
+    }
 
 });
 
 }
 
 
-
 async function loadMemories(){
+    console.log("loadMemories started");
+    const q = query(
+        collection(db, "memories"),
+        orderBy("createdAt", "desc")
+    );
+    
+    console.log("before firestore");
+    const snapshot = await getDocs(q);
+    console.log("after firestore")
+    console.log("documents", snapshot.size);
 
-    const snapshot =
-    await getDocs(collection(db,"memories"));
+    const docs = snapshot.docs;
+    const total = docs.length;
+    let loaded = 0;
 
-    snapshot.forEach((doc)=>{
+    for(const memoryDoc of docs){
+        console.log("memory founded");
 
-        const memory = doc.data();
+        const memory = memoryDoc.data();
+        if(memory.hiddenForUsers && !isAdmin){
+            continue
+        }
 
-        const popupId = "popup_" + doc.id;
+        const popupId = "popup_" + memoryDoc.id;
 
         const button = document.createElement("button");
 
         button.className = "story-btn";
-
         button.textContent = memory.memoryName;
+        if(memory.hiddenForUsers){
+            button.claseList.add("deleted-memory");
+        }
+
 
         button.dataset.popup = popupId;
 
@@ -367,52 +577,195 @@ async function loadMemories(){
         .getElementById("storyGrid")
         .appendChild(button);
 
-        const popup =
-        document.createElement("div");
-
-        popup.className = "story-overlay";
-
-        popup.id = popupId;
-
-        popup.innerHTML = `
-        <div class="story-modal">
-
-            <button class="close-story">✖</button>
-
-            <div class="story-content">
-
-                <h2>${memory.title}</h2>
-
-                <p>${memory.text}</p>
-
-                <img src="${memory.image}">
-
-            </div>
-
-        </div>
-        `;
-
-        document.body.appendChild(popup);
+        let popup = null;
 
         button.addEventListener("click",()=>{
 
-            popup.style.display="flex";
+            if(!popup){
 
-            document.body.style.overflow="hidden";
+                popup = document.createElement("div");
+
+                popup.className =
+                "story-overlay";
+
+                popup.id = popupId;
+
+                popup.innerHTML = `
+
+                <div class="story-modal">
+
+
+                    <button class="close-story">✖</button>
+
+                    <div class="story-content">
+
+                        <h2>${memory.title || ""}</h2>
+
+                        <p>${memory.text || ""}</p>
+
+                        ${
+                        memory.mainImage
+                        ?
+                        `<img src="${memory.mainImage}">`
+                        :
+                        ""
+                        }
+
+                        ${
+                        (memory.extraImages || [])
+                        .map(item => `
+
+                            ${
+                            item.caption
+                            ?
+                            `<p>${item.caption}</p>`
+                            :
+                            ""
+                            }
+
+                            <img src="${item.image}">
+
+                        `)
+                        .join("")
+                        }
+
+                    </div>
+
+                    ${isAdmin ? `
+                    <div class="admin-buttons">
+
+                        <button class="hide-memory">
+                            إخفاء للمستخدم
+                        </button>
+
+                        <button class="admin-delete-memory">
+                            حذف نهائي
+                        </button>
+
+                    </div>
+                    ` : `
+                    <button class="delete-memory">
+                        حذف الذكرى
+                    </button>
+                    `}
+
+                </div>
+                `;
+
+                document.body.appendChild(popup);
+                const closeBtn = popup.querySelector(".close-story");
+                closeBtn.addEventListener("click",()=>{
+
+                    popup.style.display="none";
+
+                    document.body.style.overflow="auto";
+
+                });
+
+                
+
+                const deleteBtn =
+                popup.querySelector(".delete-memory");
+
+                if(deleteBtn){
+
+                    deleteBtn.addEventListener("click",async()=>{
+
+                        await updateDoc(
+                            doc(
+                                db,
+                                "memories",
+                                memoryDoc.id
+                            ),
+                            {
+                                hiddenForUsers:true
+                            }
+                        );
+
+                        popup.remove();
+
+                        button.remove();
+
+                    });
+
+                }
+                const hideBtn =
+                popup.querySelector(".hide-memory");
+
+                if(hideBtn){
+
+                    hideBtn.addEventListener("click", async()=>{
+
+                        await updateDoc(
+                            doc(
+                                db,
+                                "memories",
+                                memoryDoc.id
+                            ),
+                            {
+                                hiddenForUsers:true
+                            }
+                        );
+
+                        button.classList.add("deleted-memory");
+
+                        button.textContent =
+                        `🗑 ${memory.memoryName} (مخفية)`;
+
+                        popup.style.display = "none";
+
+                        document.body.style.overflow = "auto";
+
+                    });
+
+                }
+                const adminDeleteBtn =
+                popup.querySelector(".admin-delete-memory");
+
+                if(adminDeleteBtn){
+
+                    adminDeleteBtn.addEventListener("click", async()=>{
+
+                        const confirmDelete = confirm(
+                            "سيتم حذف الذكرى نهائياً من قاعدة البيانات، هل أنت متأكد؟"
+                        );
+
+                        if(!confirmDelete) return;
+
+                        await deleteDoc(
+                            doc(
+                                db,
+                                "memories",
+                                memoryDoc.id
+                            )
+                        );
+
+                        popup.remove();
+                        button.remove();
+
+                    });
+
+                }
+
+            }
+
+            popup.style.display = "flex";
+
+            document.body.style.overflow = "hidden";
 
         });
 
-        popup.querySelector(".close-story")
-        .addEventListener("click",()=>{
+        loaded++;
+        document.getElementById("loadingBar").style.width = ((loaded / total) * 100) + "%";
 
-            popup.style.display="none";
 
-            document.body.style.overflow="auto";
+    };
+    setTimeout(()=>{
 
-        });
+        document.getElementById(
+            "loadingContainer"
+        ).style.display = "none";
 
-    });
+    },300);
 
 }
-
-loadMemories();
