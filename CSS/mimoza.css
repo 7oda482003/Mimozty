@@ -363,7 +363,7 @@ footer p,
 }
 
 #loadingBar {
-    width: 0%;
+    width: 5%;
     height: 100%;
     background: #800020;
     transition: 0.3s;
@@ -497,12 +497,14 @@ footer p,
 
 }
 .admin-delete-memory,
-.hide-memory {
+.hide-memory,
+.delete-memory {
     padding: 10px;
     color: white;
     background: #135850;
     border: none;
     border-radius: 6px;
+    margin-top: 10px;
 }
 
 .deleted-memory {

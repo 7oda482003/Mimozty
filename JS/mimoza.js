@@ -405,6 +405,35 @@ async function compressImage(file){
 
 }
 
+async function uploadToImgBB(base64Image){
+
+    const API_KEY = "3abf8931369e119a546f2a0586a5a99f";
+
+    const formData = new FormData();
+
+    formData.append(
+        "image",
+        base64Image.split(",")[1]
+    );
+
+    const response = await fetch(
+        `https://api.imgbb.com/1/upload?key=${API_KEY}`,
+        {
+            method: "POST",
+            body: formData
+        }
+    );
+
+    const data = await response.json();
+
+    if(!data.success){
+        throw new Error("فشل رفع الصورة");
+    }
+
+    return data.data.url;
+}
+
+
 
 const saveMemoryBtn =
 document.getElementById("saveMemoryBtn");
@@ -442,9 +471,13 @@ saveMemoryBtn.addEventListener("click", async () => {
         let mainImageUrl = "";
 
         if(mainImage){
-            mainImageUrl =
+
+            const compressedImage =
             await compressImage(mainImage);
-            
+
+            mainImageUrl =
+            await uploadToImgBB(compressedImage);
+
         }
 
         const extraImages = [];
@@ -465,15 +498,15 @@ saveMemoryBtn.addEventListener("click", async () => {
 
             if(!file) continue;
 
-            const imageUrl =
+            const compressedImage =
             await compressImage(file);
 
+            const imageUrl =
+            await uploadToImgBB(compressedImage);
+
             extraImages.push({
-
                 image:imageUrl,
-
                 caption:caption
-
             });
 
         }
@@ -507,6 +540,8 @@ saveMemoryBtn.addEventListener("click", async () => {
         );
 
         alert("تم حفظ الذكرى ❤️");
+        document.getElementById("storyGrid").innerHTML = "";
+        loadMemories();
                 
         saveMemoryBtn.disabled = false;
         saveMemoryBtn.textContent = "إضافة الذكرى";
@@ -540,11 +575,15 @@ async function loadMemories(){
     console.log("loadMemories started");
     const q = query(
         collection(db, "memories"),
-        orderBy("createdAt", "desc")
+        orderBy("createdAt", "asc")
     );
     
     console.log("before firestore");
+    console.time("memories");
     const snapshot = await getDocs(q);
+    console.log(snapshot.docs);
+    console.log("عدد الذكريات", snapshot.size)
+    console.timeEnd("memories");
     console.log("after firestore")
     console.log("documents", snapshot.size);
 
@@ -553,6 +592,8 @@ async function loadMemories(){
     let loaded = 0;
 
     for(const memoryDoc of docs){
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         console.log("memory founded");
 
         const memory = memoryDoc.data();
@@ -567,7 +608,7 @@ async function loadMemories(){
         button.className = "story-btn";
         button.textContent = memory.memoryName;
         if(memory.hiddenForUsers){
-            button.claseList.add("deleted-memory");
+            button.classList.add("deleted-memory");
         }
 
 
