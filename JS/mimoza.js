@@ -11,7 +11,7 @@ import {
 } from "./firebase.js";
 
 let isAdmin = false;
-
+const Bot_Token = "8725319187:AAFZFK8bsvzvAgDtwz_eojm_xWTDXjWjPwk";
 
 
 
@@ -219,7 +219,7 @@ function checkLogin(){
         loadMemories();
 
         fetch(
-            "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
             encodeURIComponent(
                 `تم تسجيل دخول الأدمن للموقع ✅\nالوقت: ${time}`
             )
@@ -236,7 +236,7 @@ function checkLogin(){
         loadMemories();
 
         fetch(
-            "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
             encodeURIComponent(
                 `تم تسجيل دخول زائر للموقع ✅\nالوقت: ${time}`
             )
@@ -549,7 +549,7 @@ saveMemoryBtn.addEventListener("click", async () => {
 
         const time = new Date().toLocaleString("ar-EG");
         fetch(
-            "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
             encodeURIComponent(
                 `تم اضافة ذكرى جديدة للموقع ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \n الإسم: ${memoryName} \nالوقت: ${time}`
             )

@@ -13,7 +13,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDol46BKZDeH-rIR-Kof_tbyIiFikL0hQQ",
+  apiKey: "AAFZFK8bsvzvAgDtwz_eojm_xWTDXjWjPwk",
   authDomain: "mimozty-8ef5d.firebaseapp.com",
   projectId: "mimozty-8ef5d",
   storageBucket: "mimozty-8ef5d.firebasestorage.app",
