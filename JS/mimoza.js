@@ -496,57 +496,71 @@ saveMemoryBtn.addEventListener("click", async () => {
             const caption =
             captionInputs[i].value.trim();
 
-            if(!file) continue;
+            let imageUrl = "";
 
-            const compressedImage =
-            await compressImage(file);
+            if(file){
 
-            const imageUrl =
-            await uploadToImgBB(compressedImage);
+                const compressedImage =
+                await compressImage(file);
 
-            extraImages.push({
-                image:imageUrl,
-                caption:caption
-            });
+                imageUrl =
+                await uploadToImgBB(compressedImage);
+
+            }
+
+            if(imageUrl || caption){
+
+                extraImages.push({
+                    image:imageUrl,
+                    caption:caption
+                });
+
+            }
 
         }
 
-        await addDoc(
+        const newDoc = await addDoc(
             collection(db,"memories"),
             {
-
                 memoryName,
-
                 title,
-
                 text,
-
-                mainImage:mainImageUrl,
-
+                mainImage: mainImageUrl,
                 extraImages,
-                createdBy:isAdmin? "admin" : "user",
+                createdBy:isAdmin ? "admin" : "user",
                 hiddenForUsers:false,
-
                 createdAt:Date.now()
-
             }
         );
+
+
+        createMemoryButton(
+            {
+                memoryName,
+                title,
+                text,
+                mainImage: mainImageUrl,
+                extraImages,
+                hiddenForUsers:false
+            },
+            newDoc.id
+        );
+
+
         const time = new Date().toLocaleString("ar-EG");
         fetch(
             "https://api.telegram.org/bot8725319187:AAEuZBO-bY_B1E8prcAKLEoRn0-chnXlYio/sendMessage?chat_id=1916841565&text=" +
             encodeURIComponent(
-                `تم اضافة ذكرى جديدة للموقع ✅\n العنوان: ${title} \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \nالوقت: ${time}`
+                `تم اضافة ذكرى جديدة للموقع ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \n الإسم: ${memoryName} \nالوقت: ${time}`
             )
         );
 
         alert("تم حفظ الذكرى ❤️");
-        document.getElementById("storyGrid").innerHTML = "";
-        loadMemories();
                 
         saveMemoryBtn.disabled = false;
         saveMemoryBtn.textContent = "إضافة الذكرى";
 
-        document.getElementById("popup14").style.display = "none";
+        document.getElementById("popupTemplete").style.display = "none";
 
         document.getElementById("memoryName").value = "";
         document.getElementById("memoryTitle").value = "";
@@ -567,6 +581,200 @@ saveMemoryBtn.addEventListener("click", async () => {
     }
 
 });
+
+}
+
+function createMemoryButton(memory, memoryId){
+
+    const popupId = "popup_" + memoryId;
+
+    const button = document.createElement("button");
+
+    button.className = "story-btn";
+    button.textContent = memory.memoryName;
+
+    if(memory.hiddenForUsers){
+        button.classList.add("deleted-memory");
+    }
+
+    button.dataset.popup = popupId;
+
+    document
+    .getElementById("storyGrid")
+    .appendChild(button);
+
+    let popup = null;
+
+    button.addEventListener("click",()=>{
+
+        if(!popup){
+
+            popup = document.createElement("div");
+
+            popup.className = "story-overlay";
+
+            popup.id = popupId;
+
+            popup.innerHTML = `
+
+            <div class="story-modal">
+
+                <button class="close-story">✖</button>
+
+                <div class="story-content">
+
+                    <h2>${memory.title || ""}</h2>
+
+                    <p>${memory.text || ""}</p>
+
+                    ${
+                    memory.mainImage
+                    ?
+                    `<img src="${memory.mainImage}">`
+                    :
+                    ""
+                    }
+
+                                        
+                    ${
+                    (memory.extraImages || [])
+                    .map(item => `
+
+                        ${
+                        item.caption
+                        ?
+                        `<p>${item.caption}</p>`
+                        :
+                        ""
+                        }
+
+                        ${
+                        item.image
+                        ?
+                        `<img src="${item.image}">`
+                        :
+                        ""
+                        }
+
+                    `)
+                    .join("")
+                    }
+
+                </div>
+
+                ${isAdmin ? `
+                <div class="admin-buttons">
+
+                    <button class="hide-memory">
+                        إخفاء للمستخدم
+                    </button>
+
+                    <button class="admin-delete-memory">
+                        حذف نهائي
+                    </button>
+
+                </div>
+                ` : `
+                <button class="delete-memory">
+                    حذف الذكرى
+                </button>
+                `}
+
+            </div>
+            `;
+
+            document.body.appendChild(popup);
+
+            const closeBtn =
+            popup.querySelector(".close-story");
+
+            closeBtn.addEventListener("click",()=>{
+
+                popup.style.display = "none";
+
+                document.body.style.overflow = "auto";
+
+            });
+
+            const deleteBtn =
+            popup.querySelector(".delete-memory");
+
+            if(deleteBtn){
+
+                deleteBtn.addEventListener("click", async()=>{
+
+                    await updateDoc(
+                        doc(db,"memories",memoryId),
+                        {
+                            hiddenForUsers:true
+                        }
+                    );
+
+                    popup.remove();
+                    button.remove();
+
+                });
+
+            }
+
+            const hideBtn =
+            popup.querySelector(".hide-memory");
+
+            if(hideBtn){
+
+                hideBtn.addEventListener("click", async()=>{
+
+                    await updateDoc(
+                        doc(db,"memories",memoryId),
+                        {
+                            hiddenForUsers:true
+                        }
+                    );
+
+                    button.classList.add("deleted-memory");
+
+                    button.textContent =
+                    `🗑 ${memory.memoryName} (مخفية)`;
+
+                    popup.style.display = "none";
+
+                    document.body.style.overflow = "auto";
+
+                });
+
+            }
+
+            const adminDeleteBtn =
+            popup.querySelector(".admin-delete-memory");
+
+            if(adminDeleteBtn){
+
+                adminDeleteBtn.addEventListener("click", async()=>{
+
+                    const confirmDelete = confirm(
+                        "سيتم حذف الذكرى نهائياً من قاعدة البيانات، هل أنت متأكد؟"
+                    );
+
+                    if(!confirmDelete) return;
+
+                    await deleteDoc(
+                        doc(db,"memories",memoryId)
+                    );
+
+                    popup.remove();
+                    button.remove();
+
+                });
+
+            }
+
+        }
+
+        popup.style.display = "flex";
+
+        document.body.style.overflow = "hidden";
+
+    });
 
 }
 
@@ -601,200 +809,11 @@ async function loadMemories(){
             continue
         }
 
-        const popupId = "popup_" + memoryDoc.id;
+        createMemoryButton(
+            memory,
+            memoryDoc.id
+        );
 
-        const button = document.createElement("button");
-
-        button.className = "story-btn";
-        button.textContent = memory.memoryName;
-        if(memory.hiddenForUsers){
-            button.classList.add("deleted-memory");
-        }
-
-
-        button.dataset.popup = popupId;
-
-        document
-        .getElementById("storyGrid")
-        .appendChild(button);
-
-        let popup = null;
-
-        button.addEventListener("click",()=>{
-
-            if(!popup){
-
-                popup = document.createElement("div");
-
-                popup.className =
-                "story-overlay";
-
-                popup.id = popupId;
-
-                popup.innerHTML = `
-
-                <div class="story-modal">
-
-
-                    <button class="close-story">✖</button>
-
-                    <div class="story-content">
-
-                        <h2>${memory.title || ""}</h2>
-
-                        <p>${memory.text || ""}</p>
-
-                        ${
-                        memory.mainImage
-                        ?
-                        `<img src="${memory.mainImage}">`
-                        :
-                        ""
-                        }
-
-                        ${
-                        (memory.extraImages || [])
-                        .map(item => `
-
-                            ${
-                            item.caption
-                            ?
-                            `<p>${item.caption}</p>`
-                            :
-                            ""
-                            }
-
-                            <img src="${item.image}">
-
-                        `)
-                        .join("")
-                        }
-
-                    </div>
-
-                    ${isAdmin ? `
-                    <div class="admin-buttons">
-
-                        <button class="hide-memory">
-                            إخفاء للمستخدم
-                        </button>
-
-                        <button class="admin-delete-memory">
-                            حذف نهائي
-                        </button>
-
-                    </div>
-                    ` : `
-                    <button class="delete-memory">
-                        حذف الذكرى
-                    </button>
-                    `}
-
-                </div>
-                `;
-
-                document.body.appendChild(popup);
-                const closeBtn = popup.querySelector(".close-story");
-                closeBtn.addEventListener("click",()=>{
-
-                    popup.style.display="none";
-
-                    document.body.style.overflow="auto";
-
-                });
-
-                
-
-                const deleteBtn =
-                popup.querySelector(".delete-memory");
-
-                if(deleteBtn){
-
-                    deleteBtn.addEventListener("click",async()=>{
-
-                        await updateDoc(
-                            doc(
-                                db,
-                                "memories",
-                                memoryDoc.id
-                            ),
-                            {
-                                hiddenForUsers:true
-                            }
-                        );
-
-                        popup.remove();
-
-                        button.remove();
-
-                    });
-
-                }
-                const hideBtn =
-                popup.querySelector(".hide-memory");
-
-                if(hideBtn){
-
-                    hideBtn.addEventListener("click", async()=>{
-
-                        await updateDoc(
-                            doc(
-                                db,
-                                "memories",
-                                memoryDoc.id
-                            ),
-                            {
-                                hiddenForUsers:true
-                            }
-                        );
-
-                        button.classList.add("deleted-memory");
-
-                        button.textContent =
-                        `🗑 ${memory.memoryName} (مخفية)`;
-
-                        popup.style.display = "none";
-
-                        document.body.style.overflow = "auto";
-
-                    });
-
-                }
-                const adminDeleteBtn =
-                popup.querySelector(".admin-delete-memory");
-
-                if(adminDeleteBtn){
-
-                    adminDeleteBtn.addEventListener("click", async()=>{
-
-                        const confirmDelete = confirm(
-                            "سيتم حذف الذكرى نهائياً من قاعدة البيانات، هل أنت متأكد؟"
-                        );
-
-                        if(!confirmDelete) return;
-
-                        await deleteDoc(
-                            doc(
-                                db,
-                                "memories",
-                                memoryDoc.id
-                            )
-                        );
-
-                        popup.remove();
-                        button.remove();
-
-                    });
-
-                }
-
-            }
-
-            popup.style.display = "flex";
-
-            document.body.style.overflow = "hidden";
-
-        });
 
         loaded++;
         document.getElementById("loadingBar").style.width = ((loaded / total) * 100) + "%";
