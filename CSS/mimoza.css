@@ -328,6 +328,15 @@ footer p,
     animation: heartbeat 1.5s infinite;
 }
 
+.for-me h2 {
+    color: #a30000;
+}
+
+.for-me h4 {
+    color: #b03a5b;
+}
+
+
 @keyframes heartbeat{
     0%,100%{
         transform:scale(1);
@@ -521,6 +530,45 @@ footer p,
     color: #a30000;
 }
 
+
+
+
+#passwordSection{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-direction: column;
+    margin-top:15px;
+}
+
+#giftPassword{
+    padding:10px;
+    width:90%;
+    height: 60px;
+    border-radius: 10px;
+}
+
+#showGiftBtn,
+.show-Gift {
+    font-size: 15px;
+    padding: 10px;
+    background: #135850;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+#errorMsg{
+    color:red;
+    margin-top:10px;
+}
+
+
+
+
+
+
  
 /* الرسالة السرية */
 .secret-btn{
@@ -591,15 +639,16 @@ footer p,
 }
 
 .message-card h1 {
-    color: #b03a5b;
+    font-size: 50px;
+    color: #b3224b;
 }
 
 .message-card h3 {
-    color: #be606b;
+    color: #cc6d78;
 }
 
 .message-card p {
-    font-size: 15px;
+    font-size: 18px;
     color: #135850;
 }
 

@@ -1,10 +1,16 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 
 import {
+  getAuth
+} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js"
+
+
+import {
   getFirestore,
   collection,
   addDoc,
   getDocs,
+  getDoc,
   query,
   orderBy,
   doc,
@@ -13,7 +19,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AAFZFK8bsvzvAgDtwz_eojm_xWTDXjWjPwk",
+  apiKey: "AIzaSyDol46BKZDeH-rIR-Kof_tbyIiFikL0hQQ",
   authDomain: "mimozty-8ef5d.firebaseapp.com",
   projectId: "mimozty-8ef5d",
   storageBucket: "mimozty-8ef5d.firebasestorage.app",
@@ -23,7 +29,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-console.log("firebase connected");
+export const auth = getAuth(app);
 
 export const db = getFirestore(app);
-export { collection, addDoc, getDocs, query, orderBy, doc, updateDoc, deleteDoc };
+
+
+console.log("firebase connected");
+
+export { collection, addDoc, getDocs, getDoc, query, orderBy, doc, updateDoc, deleteDoc };

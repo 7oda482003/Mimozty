@@ -1,8 +1,10 @@
 import {
   db,
+  auth,
   collection,
   addDoc,
   getDocs,
+  getDoc,
   query,
   orderBy,
   doc,
@@ -10,8 +12,212 @@ import {
   deleteDoc
 } from "./firebase.js";
 
+import {
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+
 let isAdmin = false;
 const Bot_Token = "8725319187:AAFZFK8bsvzvAgDtwz_eojm_xWTDXjWjPwk";
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+// تسجيل الدخول
+async function checkLogin(){
+
+    const time = new Date().toLocaleString("ar-EG")
+
+    const username =
+    document.getElementById("username").value.trim();
+
+    const password =
+    document.getElementById("password").value.trim();
+
+
+    let email = "";
+    if(username === "محمود"){
+        email = "محمود@mimoza.com";
+    }
+    else if(username === "ميموزتي"){
+        email = "ميموزتي@mimoza.com";
+    }
+    else{
+        document.getElementById("error-msg").innerText =
+        "اسم المستخدم غير صحيح";
+        return;
+    }
+
+
+    try{
+
+        const userCredential =
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        isAdmin =
+        email === "محمود@mimoza.com";
+
+        document.getElementById("login-screen").style.display = "none";
+
+        document.getElementById("website-content").style.display = "block";
+        sessionStorage.setItem("username", username);
+        loadMemories();
+        fetch(
+        `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
+        encodeURIComponent(
+            `تم تسجيل دخول ${isAdmin ? "الأدمن" : "المستخدم"} للموقع ✅\nالوقت: ${time}`
+        )
+    );
+
+    }catch(error){
+
+        document.getElementById("error-msg").innerText =
+        "اسم المستخدم أو كلمة المرور غير صحيحة";
+
+    }
+
+}
+
+
+window.checkLogin = checkLogin;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+// القلوب حوالين الرأس
+const orbit = document.querySelector(".orbit3d");
+
+const emojy = ["🦋","✨","🤍","🌟"];
+
+for(let i=0;i<8;i++){
+
+    const el = document.createElement("div");
+
+    el.className = "fly";
+    el.innerHTML = emojy[i % emojy.length];
+
+    orbit.appendChild(el);
+
+    animate(el, i * (Math.PI * 2 / 8));
+}
+
+function animate(el,startAngle){
+
+    let angle = startAngle;
+
+    function frame(){
+
+        angle += 0.02;
+
+        const rx = 50;  // العرض
+        const ry = 35;  // الارتفاع
+
+        const x = Math.cos(angle) * rx;
+        const y = Math.sin(angle) * ry;
+
+        const depth = (-Math.sin(angle) + 1) / 2;
+
+        const scale = 0.6 + depth * 0.8;
+
+        el.style.left = `${x}px`;
+        el.style.top  = `${y}px`;
+
+        el.style.transform =
+            `translate(-50%,-50%) scale(${scale})`;
+
+        el.style.opacity =
+            0.3 + depth * 0.7;
+
+        el.style.zIndex =
+            Math.floor(depth * 100);
+
+        requestAnimationFrame(frame);
+    }
+
+    frame();
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+// القلوب اللي هتطير عند الرسالة
+const container = document.getElementById("heartContainer");
+
+const emojis = [
+    "❤️",
+    "🤍",
+    "💕",
+    "💖",
+    "💗",
+    "💘",
+    "🦋",
+    "✨",
+    "🌸",
+    "🥰"
+];
+
+function createEmoji() {
+    const emoji = document.createElement("div");
+
+    emoji.classList.add("heart");
+    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+    emoji.style.left = Math.random() * 100 + "%";
+    emoji.style.fontSize = (Math.random() * 15 + 20) + "px";
+
+    container.appendChild(emoji);
+
+    setTimeout(() => {
+        emoji.remove();
+    }, 6000);
+}
+
+setInterval(createEmoji, 400);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+// تحكمات الفيديوهات
+const videos = document.querySelectorAll("video");
+
+videos.forEach(video => {
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        video.pause();
+      }
+    });
+  }, {
+    threshold: 0.5
+  });
+
+  observer.observe(video);
+});
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 
@@ -75,210 +281,14 @@ calculateAge();
 // تحديث كل ثانية بدون ما تعمل refresh
 setInterval(calculateAge, 1000);
 
-///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
-// القلوب حوالين الرأس
-const orbit = document.querySelector(".orbit3d");
+// الذكريات
 
-const emojy = ["🦋","✨","🤍","🌟"];
-
-for(let i=0;i<8;i++){
-
-    const el = document.createElement("div");
-
-    el.className = "fly";
-    el.innerHTML = emojy[i % emojy.length];
-
-    orbit.appendChild(el);
-
-    animate(el, i * (Math.PI * 2 / 8));
-}
-
-function animate(el,startAngle){
-
-    let angle = startAngle;
-
-    function frame(){
-
-        angle += 0.02;
-
-        const rx = 50;  // العرض
-        const ry = 35;  // الارتفاع
-
-        const x = Math.cos(angle) * rx;
-        const y = Math.sin(angle) * ry;
-
-        const depth = (-Math.sin(angle) + 1) / 2;
-
-        const scale = 0.6 + depth * 0.8;
-
-        el.style.left = `${x}px`;
-        el.style.top  = `${y}px`;
-
-        el.style.transform =
-            `translate(-50%,-50%) scale(${scale})`;
-
-        el.style.opacity =
-            0.3 + depth * 0.7;
-
-        el.style.zIndex =
-            Math.floor(depth * 100);
-
-        requestAnimationFrame(frame);
-    }
-
-    frame();
-}
-
-//////////////////////////////
-
-
-
-
-
-// القلوب اللي هتطير عند الرسالة
-const container = document.getElementById("heartContainer");
-
-const emojis = [
-    "❤️",
-    "🤍",
-    "💕",
-    "💖",
-    "💗",
-    "💘",
-    "🦋",
-    "✨",
-    "🌸",
-    "🥰"
-];
-
-function createEmoji() {
-    const emoji = document.createElement("div");
-
-    emoji.classList.add("heart");
-    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-
-    emoji.style.left = Math.random() * 100 + "%";
-    emoji.style.fontSize = (Math.random() * 15 + 20) + "px";
-
-    container.appendChild(emoji);
-
-    setTimeout(() => {
-        emoji.remove();
-    }, 6000);
-}
-
-setInterval(createEmoji, 400);
-
-////////////////////////////////////
-
-
-
-
-// تحكمات الفيديوهات
-const videos = document.querySelectorAll("video");
-
-videos.forEach(video => {
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) {
-        video.pause();
-      }
-    });
-  }, {
-    threshold: 0.5
-  });
-
-  observer.observe(video);
-});
-
-
-
-
-// تسجيل الدخول
-function checkLogin(){
-
-    const time = new Date().toLocaleString("ar-EG")
-
-    const username =
-    document.getElementById("username").value.trim();
-
-    const password =
-    document.getElementById("password").value.trim();
-    if(username === "محمود" && password === "1912003"){
-
-        isAdmin = true;
-
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("website-content").style.display = "block";
-
-        loadMemories();
-
-        fetch(
-            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
-            encodeURIComponent(
-                `تم تسجيل دخول الأدمن للموقع ✅\nالوقت: ${time}`
-            )
-        );
-
-    }
-    else if(username === "ميموزتي" && password === "1822007"){
-
-        isAdmin = false;
-
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("website-content").style.display = "block";
-
-        loadMemories();
-
-        fetch(
-            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
-            encodeURIComponent(
-                `تم تسجيل دخول زائر للموقع ✅\nالوقت: ${time}`
-            )
-        );
-
-    }else{
-
-        document.getElementById("error-msg").innerText =
-        "اسم المستخدم أو كلمة المرور غير صحيحة";
-    }
-}
-window.checkLogin = checkLogin;
-
-// الرسالة السرية
-
-const secretBtn = document.getElementById("secretBtn");
-const overlay = document.getElementById("overlay");
-const closeBtn = document.getElementById("closeBtn");
-
-secretBtn.addEventListener("click", () => {
-    overlay.classList.add("show");
-    document.body.style.overflow = "hidden";
-});
-
-closeBtn.addEventListener("click", () => {
-    overlay.classList.remove("show");
-    document.body.style.overflow = "auto";
-});
-
-/* قفل عند الضغط خارج المربع */
-overlay.addEventListener("click", (e) => {
-    if(e.target === overlay){
-        overlay.classList.remove("show");
-        document.body.style.overflow = "auto";
-    }
-});
-
-console.log("story loaded")
-
-
-
-// هنجرب
+// انشاء المربع
 const storyBtns = document.querySelectorAll(".story-btn");
 const closeBtns = document.querySelectorAll(".close-story");
 
@@ -345,6 +355,7 @@ if(addImageBtn){
 }
 
 
+// ضغط الصورة
 async function compressImage(file){
 
     return new Promise((resolve)=>{
@@ -405,6 +416,9 @@ async function compressImage(file){
 
 }
 
+
+
+// يحملها علي التخزين
 async function uploadToImgBB(base64Image){
 
     const API_KEY = "3abf8931369e119a546f2a0586a5a99f";
@@ -435,6 +449,7 @@ async function uploadToImgBB(base64Image){
 
 
 
+// حفظ الذكرى
 const saveMemoryBtn =
 document.getElementById("saveMemoryBtn");
 
@@ -584,6 +599,10 @@ saveMemoryBtn.addEventListener("click", async () => {
 
 }
 
+
+
+
+// اضافة الذكرى في المربع
 function createMemoryButton(memory, memoryId){
 
     const popupId = "popup_" + memoryId;
@@ -779,6 +798,8 @@ function createMemoryButton(memory, memoryId){
 }
 
 
+
+// تحميل الذكريات
 async function loadMemories(){
     console.log("loadMemories started");
     const q = query(
@@ -829,3 +850,146 @@ async function loadMemories(){
     },300);
 
 }
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// اللغز
+
+const showGiftBtn = document.getElementById("showGiftBtn");
+const passwordSection = document.getElementById("passwordSection");
+const giftContent = document.getElementById("giftContent");
+const errorMsg = document.getElementById("errorMsg");
+
+const giftPopup =
+document.getElementById("giftPopup");
+
+const closeGift =
+document.getElementById("closeGift");
+
+showGiftBtn.addEventListener("click", () => {
+
+    giftPopup.style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+
+});
+
+closeGift.addEventListener("click", () => {
+
+    giftPopup.style.display = "none";
+
+    document.body.style.overflow = "auto";
+
+});
+
+window.checkGift = async function () {
+
+    const password =
+    document.getElementById("giftPassword").value.trim();
+
+    try {
+
+        const giftDoc = await getDoc(
+            doc(db, "settings", "gift")
+        );
+        console.log("exists", giftDoc.exists());
+        console.log("data", giftDoc.data());
+
+        if (!giftDoc.exists()) {
+
+            errorMsg.textContent =
+            "لم يتم العثور على إعدادات الهدية";
+
+            return;
+        }
+
+        const firebasePassword =
+        giftDoc.data().password;
+        console.log("Entered Password:", password);
+
+        console.log("Firebase Password:", firebasePassword);
+        if (password === firebasePassword) {
+
+            document.getElementById(
+                "passwordSection"
+            ).style.display = "none";
+
+            document.getElementById(
+                "giftContent"
+            ).style.display = "block";
+
+            errorMsg.textContent = "";
+
+            const time =
+            new Date().toLocaleString("ar-EG");
+
+            const user =
+            sessionStorage.getItem("username") ||
+            "مستخدم غير معروف";
+
+            fetch(
+                `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
+                encodeURIComponent(
+                    `تم فتح الهدية السرية 🎁\nبواسطة: ${user}\nالوقت: ${time}`
+                )
+            );
+
+        } else {
+
+            errorMsg.textContent =
+            "كلمة السر غير صحيحة ❌";
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        errorMsg.textContent =
+        "حدث خطأ أثناء التحقق";
+
+    }
+};
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+// الرسالة السرية
+
+const secretBtn = document.getElementById("secretBtn");
+const overlay = document.getElementById("overlay");
+const closeBtn = document.getElementById("closeBtn");
+
+secretBtn.addEventListener("click", () => {
+    overlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+    const time = new Date().toLocaleString("ar-EG");
+        fetch(
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
+            encodeURIComponent(
+                `تم فتح الرسالة السرية ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \nالوقت: ${time}`
+            )
+        );
+});
+
+closeBtn.addEventListener("click", () => {
+    overlay.classList.remove("show");
+    document.body.style.overflow = "auto";
+});
+
+/* قفل عند الضغط خارج المربع */
+overlay.addEventListener("click", (e) => {
+    if(e.target === overlay){
+        overlay.classList.remove("show");
+        document.body.style.overflow = "auto";
+    }
+});
+
+console.log("story loaded")
+
