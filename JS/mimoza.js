@@ -19,6 +19,7 @@ import {
 
 let isAdmin = false;
 const Bot_Token = "8725319187:AAFZFK8bsvzvAgDtwz_eojm_xWTDXjWjPwk";
+const Chat_Id = "1916841565";
 
 
 
@@ -76,7 +77,7 @@ async function checkLogin(){
         encodeURIComponent(
             `تم تسجيل دخول ${isAdmin ? "الأدمن" : "المستخدم"} للموقع ✅\nالوقت: ${time}`
         )
-    );
+        );
 
     }catch(error){
 
@@ -564,7 +565,7 @@ saveMemoryBtn.addEventListener("click", async () => {
 
         const time = new Date().toLocaleString("ar-EG");
         fetch(
-            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
             encodeURIComponent(
                 `تم اضافة ذكرى جديدة للموقع ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \n الإسم: ${memoryName} \nالوقت: ${time}`
             )
@@ -850,6 +851,164 @@ async function loadMemories(){
     },300);
 
 }
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// الهدايا
+const giftMessages = [
+
+    "بحبك 🤍",
+
+    "مشتاق ليكي 🥺",
+
+    "وحشتيني ❤️",
+
+    "ربنا يخليكي ليا 🤲",
+
+    "انتي أجمل حاجة حصلتلي 🌿",
+
+    "أنا مش محتاج أشوفك كل يوم عشان أحبك، أنا محتاجك بس عشان قلبي يفضل مطمن 🤍",
+
+    "كل مرة بدعي فيها ربنا، بيكون اسمك حاضر في الدعاء قبل اسمي أحيانًا 🤲",
+
+    "الناس بتدور على الراحة في أماكن كتير... وأنا لقيتها في فكرة إنك موجودة ❤️",
+
+    "مفيش كلمة تقدر توصف مكانتك عندي، عشان أي كلمة هتبقى أقل من الحقيقة 🌿",
+
+    "ربنا يعلم إني ما تمنيت حد في حياتي قد ما تمنيتك انتي 🥺",
+
+    "مش عارف إزاي شخص متكلمتش معاه كتير يبقى أغلى من ناس عرفتهم سنين 🤍",
+
+    "كل ما أفكر فيكي أتأكد إن ربنا رزقني بشعور جميل حتى لو لسه مكتملش 🌿",
+
+    "انتي أول حد دعيت ربنا بيه من قلبي بالشكل ده 🤲",
+
+    "في ناس بتدخل حياتنا عادي... وانتي دخلتي قلبي مباشرة ❤️",
+
+    "أوقات كتير ببقى تعبان من كل حاجة، وفكرة إنك موجودة في الدنيا بتطمني 🥺",
+
+    "لو خيروني بين ألف أمنية، هختار الأمنية اللي فيها انتي وبس 🤍",
+
+    "كل يوم بعدي بيقربني من حلم إني أقولك: الحمد لله إنك بقيتي حلالي 🌹",
+
+    "مش أجمل حاجة فيكي شكلك ولا كلامك... أجمل حاجة فيكي الأثر اللي بتسيبيه في قلبي 🌿",
+
+    "يمكن بينا مسافات وأيام طويلة، بس مفيش يوم بيعدي من غير ما أفكر فيكي ❤️",
+
+    "لو كان للحب عنوان، فالعنوان بالنسبالي هيكون اسمك انتي 🤍",
+
+    "بحبك أكتر مما تتخيلي، وأكتر مما أقدر أوصف بالكلام 🤍",
+
+    "كل يوم بيعدي بتأكديلي إنك أجمل هدية من ربنا ليا 🌿",
+
+    "وجودك في حياتي لوحده كفاية يخلي أي يوم صعب يعدي بسهولة ❤️",
+
+    "لما بفكر في مستقبلي بلاقيك أول حاجة فيه وآخر حاجة فيه 🥺",
+
+    "مش عاوز من الدنيا غير إنك تفضلي جنبي دايمًا 🤍",
+
+    "في وسط كل الناس، قلبي اختارك انتي من غير ما يتردد لحظة 🌹",
+
+    "كل حاجة حلوة بشوفها بتفكرني بيكي، وكل حاجة وحشة بتهون لما أفتكرك ❤️",
+
+    "لو كان ليا أمنية واحدة بس، فهي إني أشوفك سعيدة طول عمرك 🤲",
+
+    "ممكن أعيش من غير حاجات كتير، لكن مش متخيل حياتي من غيرك 🌷",
+
+    "انتي مش مجرد شخص بحبه، انتي راحتي وطمأنينتي وكل حاجة جميلة في حياتي 🤍"
+
+];
+
+// let currentGift = 0;
+
+const overlay1 =
+document.getElementById("giftOverlay");
+
+const messageElement =
+document.getElementById("giftMessage");
+
+const giftBtn =
+document.getElementById("giftBtn1");
+
+const closeBtn1 =
+document.getElementById("closeGiftOverlay");
+
+function typeText(text){
+
+    messageElement.textContent = "";
+
+    let i = 0;
+
+    const timer = setInterval(()=>{
+
+        messageElement.textContent +=
+        text.charAt(i);
+
+        i++;
+
+        if(i >= text.length){
+
+            clearInterval(timer);
+        }
+
+    },70);
+}
+
+let lastGift = -1;
+
+giftBtn.addEventListener("click",()=>{
+
+    overlay1.classList.add("active");
+
+    let randomIndex;
+
+    do{
+
+        randomIndex =
+        Math.floor(
+            Math.random() *
+            giftMessages.length
+        );
+
+    }while(
+        randomIndex === lastGift &&
+        giftMessages.length > 1
+    );
+
+    lastGift = randomIndex;
+
+    const selectedMessage =
+    giftMessages[randomIndex];
+
+    typeText(selectedMessage);
+
+    const time =
+    new Date().toLocaleString("ar-EG");
+
+    fetch(
+        `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
+        encodeURIComponent(
+            `🎁 تم الضغط على زر هديتي ليكي\n\n💌 الرسالة التي ظهرت:\n${selectedMessage}\n\n🕒 الوقت: ${time}`
+        )
+    );
+
+});
+
+closeBtn1.addEventListener("click",()=>{
+
+    overlay1.classList.remove("active");
+});
+
+overlay1.addEventListener("click",(e)=>{
+
+    if(
+        e.target === overlay1
+    ){
+        overlay1.classList.remove("active");
+    }
+});
 
 
 

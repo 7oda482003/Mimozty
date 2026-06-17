@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Great+Vibes&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="CSS/Framework.css">
     <link rel="stylesheet" href="CSS/mimoza.css">
@@ -32,7 +35,7 @@
             <div class="orbit3d"></div>
         </div>
         <div class="container bg-114">
-            <div class="betwen-flex flex-column bg-113 rad-10">
+            <div class="betwen-flex flex-column bg-113 rad-10 w-full">
                 <div class="rounded">
                     <p>أول نبضة</p>
                     <hr>
@@ -149,9 +152,7 @@
                     <div id="loadingContainer">
                         <div id="loadingBar"></div>
                     </div>
-                    <div class="story-grid" id="storyGrid">
-
-                    </div>
+                    <div class="story-grid" id="storyGrid"></div>
                     
                     <button class="story-btn" data-popup="popupTemplete" id="addMemoryBtn">
                         إضافة ذكرى
@@ -257,6 +258,23 @@
                 <p>واللي عند ربنا مبيضعش..</p><br>
                 <p>"إن الله لا يضيع أهله"</p>
             </div>
+            <button id="giftBtn1" class="mtb-60">
+                🌿 From Heart to Heart
+            </button>
+            <div id="giftOverlay" class="gift-overlay">
+
+                <div class="gift-box">
+
+                    <button id="closeGiftOverlay">
+                        ✖
+                    </button>
+
+                    <h2 id="giftMessage"></h2>
+
+                </div>
+
+            </div>
+            
             <div class="for-me">
                 <h2>اللــــــغــــز</h2><br>
                 <h4>متاح تبحثي في أي كتب قديم وجديد واستخدام أي وسيلة بحث عشان تلاقي الاجابة الصح</h4>
@@ -332,64 +350,68 @@
 
                 </div>
             </div>
-            <div class="for-me f-20">
-                <button id="secretBtn" class="secret-btn ">
-                    رسالة سرية ❤️
-                </button>
-                <div id="overlay" class="overlay">
-                    <div class="secret-box">
-                        <button class="close-btn" id="closeBtn">✖</button>
+            <button id="secretBtn" class="secret-btn ">
+                ❤️ Secret Message
+            </button>
+            <div id="overlay" class="overlay">
+                <div class="secret-box">
+                    <button class="close-btn" id="closeBtn">✖</button>
 
-                        <div class="secret-content">
-                            <br><br><br><br><br><br><br><div class="message-card">
-                                <h1>الكلام د ليكي انتي بس</h1><br><br>
-                                <h3>
-                                    بعد اذنك ي مريم يختشي👀...
-                                </h3>
-                            </div>
-                            <br><br><br><br><br><br><br><br><hr><br><br><br><br><br><br><br><br><br><br><br>
-                            <div class="message-card">
-                                <h1>ليكي بس هااااااا</h1><br><br>
-                                <h3>
-                                    انتي لسه باصه ليه يمريم🤨...
-                                </h3>
-                            </div><br><br><br>
-                            <br><br><br><br><br><br><hr><br><br><br><br><br><br>
-                            <div class="message-card">
-                                <h1>بحبك🫶🤍</h1>
-                                <h3>
-                                    ...🥺Sorry
-                                </h3><br>
-                                <p>
-                                    مش عارف لي كل د وازاي بس التفكير فيكي متملك مني بطريقة غرييييبة جدا ومش قادر اطلعك من دماغي حتى فترة الامتحانات ولا عارف اذاكر
-                                </p>
-                                <span class="c-i f-15">
-                                    (اكيد مش قصدي اطلعك خالص هو ف حد يقدر يستغنى عن قلبه ي قلبي)
-                                </span><br>
-                                <br><p>
-                                    وعد مني للمرة التانية لهعمل كل اللي اقدر عليه واللي مقدرش عليه عشان متكونيش لغيري...
-                                    وإن شاء الله مش هتكوني لغيري
-                                </p><br>
-                                <p>
-                                    دعواتك انتي بس ربنا ييسر الامر ونكون سوا في القريب العاجل ي ميموزتي🌿 
-                                </p><br>
-                                <p>
-                                    ع فكرة..
-                                </p>
-                                <p>
-                                    ولا ياسمين ولا 100000000000000000000000000000 واحده غيرها تشغلني عنك
-                                </p>
-                                <p>
-                                    العالم كام مليار بنت، بس ولا واحده تشغلني.... 
-                                </p><br>
+                    <div class="secret-content">
+                        <br><br><br><br><br><br><br><div class="message-card">
+                            <h1>الكلام د ليكي انتي بس</h1><br><br>
+                            <h3>
+                                بعد اذنك ي مريم يختشي👀...
+                            </h3>
+                        </div>
+                        <br><br><br><br><br><br><br><br><hr><br><br><br><br><br><br><br><br><br><br><br>
+                        <div class="message-card">
+                            <h1>ليكي بس هااااااا</h1><br><br>
+                            <h3>
+                                انتي لسه باصه ليه يمريم🤨...
+                            </h3>
+                        </div><br><br><br>
+                        <br><br><br><br><br><br><hr><br><br><br><br><br><br>
+                        <div class="message-card">
+                            <h1>بحبك🫶🤍</h1>
+                            <h3>
+                                ...🥺Sorry
+                            </h3><br>
+                            <p>
+                                مش عارف لي كل د وازاي بس التفكير فيكي متملك مني بطريقة غرييييبة جدا ومش قادر اطلعك من دماغي حتى فترة الامتحانات ولا عارف اذاكر
+                            </p>
+                            <span class="c-i f-15">
+                                (اكيد مش قصدي اطلعك خالص هو ف حد يقدر يستغنى عن قلبه ي قلبي)
+                            </span><br>
+                            <br><p>
+                                وعد مني للمرة التانية لهعمل كل اللي اقدر عليه واللي مقدرش عليه عشان متكونيش لغيري...
+                                وإن شاء الله مش هتكوني لغيري
+                            </p><br>
+                            <p>
+                                دعواتك انتي بس ربنا ييسر الامر ونكون سوا في القريب العاجل ي ميموزتي🌿 
+                            </p><br>
+                            <p>
+                                ع فكرة..
+                            </p>
+                            <p>
+                                ولا ياسمين ولا 100000000000000000000000000000 واحده غيرها تشغلني عنك
+                            </p>
+                            <p>
+                                العالم كام مليار بنت، بس ولا واحده تشغلني.... 
+                            </p><br>
+                            <div class="d-flex flex-column f-15">
                                 <span class="c-i">
-                                    لأن قلبي وعيني وعقلي وكلي معاكي انتي بس ي روحي😉
+                                لأن قلبي وعيني وعقلي وكلي معاكي انتي بس ي روحي😉
+                                </span>
+                                <span class="c-i">
+                                    ربنا يعلم إني ما تمنيت حد في حياتي قد ما تمنيتك انتي 🥺
                                 </span>
                             </div>
-
+                            
                         </div>
 
                     </div>
+
                 </div>
             </div>
         </div>
