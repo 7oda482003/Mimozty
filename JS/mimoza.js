@@ -857,6 +857,23 @@ async function loadMemories(){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // الهدايا
+
+let deviceId =
+localStorage.getItem("deviceId");
+
+if(!deviceId){
+
+    deviceId =
+    Date.now().toString(36) +
+    Math.random().toString(36).slice(2);
+
+    localStorage.setItem(
+        "deviceId",
+        deviceId
+    );
+}
+
+
 const giftMessages = [
 
     "بحبك 🤍",
@@ -1043,35 +1060,61 @@ giftBtn.addEventListener("click",()=>{
 
     overlay1.classList.add("active");
 
-    const selectedMessage = getDailyMessage();
-    const todayKey = getTodayKey();
-    const countDate = localStorage.getItem("giftCountDate");
+    const selectedMessage =
+     getDailyMessage();
+
+    const todayKey = 
+    getTodayKey();
+
+    const sessionKey =
+    `${deviceId}_${isAdmin ? "admin" : "user"}`  
+
+    const countDate = 
+    localStorage.getItem(
+        `giftCountDate_${sessionKey}`
+    );
+
     if(countDate !== todayKey){
-        localStorage.setItem("giftCount", 0);
-        localStorage.setItem("giftCountDate", todayKey);
+
+        localStorage.setItem(
+            `giftCount_${sessionKey}`,
+            0
+        );
+
+        localStorage.setItem(
+            `giftCountDate_${sessionKey}`,
+            todayKey
+        );
     }
 
-    let giftCount = parseInt(localStorage.getItem("giftCount")) || 0;
+    let giftCount = 
+    parseInt(localStorage.getItem(
+        `giftCount_${sessionKey}`
+    )) || 0;
+
     giftCount++;
-    localStorage.setItem("giftCount",giftCount);
+
+    localStorage.setItem(
+        `giftCount_${sessionKey}`,
+        giftCount
+    );
 
     typeText(selectedMessage);
-
-        
+      
 
     const savedDate =
     localStorage.getItem(
-        "giftTelegramDate"
+        `giftTelegramDate_${sessionKey}`
     );
 
     const savedMessageId =
     localStorage.getItem(
-        "giftTelegramMessageId"
+        `giftTelegramMessageId_${sessionKey}`
     );
 
     const time = new Date().toLocaleString("ar-EG");
 
-    const telegramText = `🎁هديتي ليكي: \n\n 💌 رسالة اليوم: ${selectedMessage} \n\n 🔢 عدد مرات الفتح: ${giftCount} \n\n 🕒 الوقت: ${time}`
+    const telegramText = `🎁هديتي ليكي: \n\n ${isAdmin? "أدمن" : "مستخدم"} \n\n الجهاز:${deviceId.slice(0,8)} \n\n 💌 رسالة اليوم: ${selectedMessage} \n\n 🔢 عدد مرات الفتح: ${giftCount} \n\n 🕒 الوقت: ${time}`
 
     if(
         savedDate !== todayKey ||
@@ -1103,12 +1146,12 @@ giftBtn.addEventListener("click",()=>{
             if(data.ok){
 
                 localStorage.setItem(
-                    "giftTelegramDate",
+                    `giftTelegramDate_${sessionKey}`,
                     todayKey
                 );
 
                 localStorage.setItem(
-                    "giftTelegramMessageId",
+                    `giftTelegramMessageId_${sessionKey}`,
                     data.result.message_id
                 );
             }
