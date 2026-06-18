@@ -350,6 +350,14 @@ footer p,
     }
 }
 
+.p-message {
+    color: #800020;
+    font-size: 18px;
+    font-family: sans-serif;
+    margin: 10px 0 -40px;
+
+}
+
 /* هنجرب */
 .for-story {
     width: 100%;
@@ -413,6 +421,7 @@ footer p,
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #e2acac;
 }
 
 #addMemoryBtn {
@@ -556,20 +565,22 @@ footer p,
     color: #ddd;
 }
 
+.gift-box h4 {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #00fffa;
+}
+
 #closeGiftOverlay{
     position:absolute;
-
     top:15px;
-    right:15px;
-
+    right:20px;
     border:none;
-
     background:none;
-
     color:white;
-
     cursor:pointer;
-
     font-size:24px;
 }
 

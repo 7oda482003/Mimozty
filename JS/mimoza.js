@@ -75,7 +75,7 @@ async function checkLogin(){
         fetch(
         `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
         encodeURIComponent(
-            `تم تسجيل دخول ${isAdmin ? "الأدمن" : "المستخدم"} للموقع ✅\nالوقت: ${time}`
+            `تم تسجيل دخول ${isAdmin ? "الأدمن" : "المستخدم"} للموقع ✅\n\nالوقت: ${time}`
         )
         );
 
@@ -921,7 +921,6 @@ const giftMessages = [
 
 ];
 
-// let currentGift = 0;
 
 const overlay1 =
 document.getElementById("giftOverlay");
@@ -956,44 +955,188 @@ function typeText(text){
     },70);
 }
 
-let lastGift = -1;
+
+function getTodayKey() {
+
+    const today = new Date();
+
+    return `${today.getFullYear()}-${
+        today.getMonth() + 1
+    }-${today.getDate()}`;
+}
+
+function getDailyMessage() {
+
+    const todayKey =
+    getTodayKey();
+
+    const savedDate =
+    localStorage.getItem(
+        "giftDate"
+    );
+
+    const savedMessage =
+    localStorage.getItem(
+        "giftMessage"
+    );
+
+    if(
+        savedDate === todayKey &&
+        savedMessage
+    ){
+        return savedMessage;
+    }
+
+    let usedMessages =
+    JSON.parse(
+        localStorage.getItem(
+            "usedMessages"
+        )
+    ) || [];
+
+    if(
+        usedMessages.length >=
+        giftMessages.length
+    ){
+        usedMessages = [];
+    }
+
+    const availableMessages =
+    giftMessages.filter(
+        msg =>
+        !usedMessages.includes(msg)
+    );
+
+    const randomMessage =
+    availableMessages[
+        Math.floor(
+            Math.random() *
+            availableMessages.length
+        )
+    ];
+
+    usedMessages.push(
+        randomMessage
+    );
+
+    localStorage.setItem(
+        "usedMessages",
+        JSON.stringify(
+            usedMessages
+        )
+    );
+
+    localStorage.setItem(
+        "giftDate",
+        todayKey
+    );
+
+    localStorage.setItem(
+        "giftMessage",
+        randomMessage
+    );
+
+    return randomMessage;
+}
 
 giftBtn.addEventListener("click",()=>{
 
     overlay1.classList.add("active");
 
-    let randomIndex;
+    const selectedMessage = getDailyMessage();
+    const todayKey = getTodayKey();
+    const countDate = localStorage.getItem("giftCountDate");
+    if(countDate !== todayKey){
+        localStorage.setItem("giftCount", 0);
+        localStorage.setItem("giftCountDate", todayKey);
+    }
 
-    do{
-
-        randomIndex =
-        Math.floor(
-            Math.random() *
-            giftMessages.length
-        );
-
-    }while(
-        randomIndex === lastGift &&
-        giftMessages.length > 1
-    );
-
-    lastGift = randomIndex;
-
-    const selectedMessage =
-    giftMessages[randomIndex];
+    let giftCount = parseInt(localStorage.getItem("giftCount")) || 0;
+    giftCount++;
+    localStorage.setItem("giftCount",giftCount);
 
     typeText(selectedMessage);
 
-    const time =
-    new Date().toLocaleString("ar-EG");
+        
 
-    fetch(
-        `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
-        encodeURIComponent(
-            `🎁 تم الضغط على زر هديتي ليكي\n\n💌 الرسالة التي ظهرت:\n${selectedMessage}\n\n🕒 الوقت: ${time}`
-        )
+    const savedDate =
+    localStorage.getItem(
+        "giftTelegramDate"
     );
 
+    const savedMessageId =
+    localStorage.getItem(
+        "giftTelegramMessageId"
+    );
+
+    const time = new Date().toLocaleString("ar-EG");
+
+    const telegramText = `🎁هديتي ليكي: \n\n 💌 رسالة اليوم: ${selectedMessage} \n\n 🔢 عدد مرات الفتح: ${giftCount} \n\n 🕒 الوقت: ${time}`
+
+    if(
+        savedDate !== todayKey ||
+        !savedMessageId
+    ){
+
+        fetch(
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage`,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    chat_id: Chat_Id,
+
+                    text: telegramText
+                })
+            }
+        )
+        .then(res => res.json())
+
+        .then(data => {
+
+            if(data.ok){
+
+                localStorage.setItem(
+                    "giftTelegramDate",
+                    todayKey
+                );
+
+                localStorage.setItem(
+                    "giftTelegramMessageId",
+                    data.result.message_id
+                );
+            }
+        });
+    }else{
+
+        fetch(
+            `https://api.telegram.org/bot${Bot_Token}/editMessageText`,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    chat_id: Chat_Id,
+
+                    message_id:
+                    parseInt(savedMessageId),
+
+                    text: telegramText
+                })
+            }
+        );
+    }
 });
 
 closeBtn1.addEventListener("click",()=>{
@@ -1089,7 +1232,7 @@ window.checkGift = async function () {
             "مستخدم غير معروف";
 
             fetch(
-                `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
+                `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
                 encodeURIComponent(
                     `تم فتح الهدية السرية 🎁\nبواسطة: ${user}\nالوقت: ${time}`
                 )
@@ -1130,7 +1273,7 @@ secretBtn.addEventListener("click", () => {
     document.body.style.overflow = "hidden";
     const time = new Date().toLocaleString("ar-EG");
         fetch(
-            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=1916841565&text=` +
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
             encodeURIComponent(
                 `تم فتح الرسالة السرية ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \nالوقت: ${time}`
             )
