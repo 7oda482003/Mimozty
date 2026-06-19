@@ -619,9 +619,23 @@ function createMemoryButton(memory, memoryId){
 
     button.dataset.popup = popupId;
 
+    function updateStoryCount() {
+
+        const count = document.querySelectorAll(
+            '.story-btn:not(#addMemoryBtn)'
+        ).length;
+
+        document.getElementById(
+            "ourStoryCount"
+        ).textContent = count;
+
+    }
+
     document
     .getElementById("storyGrid")
     .appendChild(button);
+
+    updateStoryCount();
 
     let popup = null;
 
@@ -732,6 +746,7 @@ function createMemoryButton(memory, memoryId){
 
                     popup.remove();
                     button.remove();
+                    updateStoryCount();
 
                 });
 
@@ -783,6 +798,7 @@ function createMemoryButton(memory, memoryId){
 
                     popup.remove();
                     button.remove();
+                    updateStoryCount();
 
                 });
 
@@ -842,6 +858,8 @@ async function loadMemories(){
 
 
     };
+
+    updateStoryCount();
     setTimeout(()=>{
 
         document.getElementById(

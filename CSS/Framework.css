@@ -262,6 +262,9 @@
         grid-template-columns:minmax(200px, 1fr);
     }
 }
+.gap-10 {
+    gap: 10px;
+}
 .gap-20 {
     gap: 20px;
 }

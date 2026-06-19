@@ -374,6 +374,12 @@ footer p,
     height: 100%;
 }
 
+#ourStoryCount {
+    font-size: 22px;
+    font-weight: 700;
+    color: #800020;
+}
+
 .story-title{
     text-align:center;
     margin: 0 0 10px;
@@ -528,27 +534,29 @@ footer p,
     display:flex;
 }
 
+.story-modal1{
+    width:90%;
+    height:fit-content;
+    max-height: 90vh;
+    background:#fffafc;
+    border-radius:15px;
+    overflow-y:auto;
+    position:relative;
+    padding:20px;
+}
+
 .gift-box{
     position:relative;
-
     width:90%;
     max-width:700px;
-
     padding:40px;
-
     text-align:center;
-
     color:white;
-
     border-radius:20px;
-
     background:rgba(255,255,255,.08);
-
     backdrop-filter:blur(15px);
-
     box-shadow:0 0 40px rgba(255,255,255,.15);
-
-    height: 90vh;
+    height: 60vh;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -558,7 +566,7 @@ footer p,
 .gift-box h2{
     font-family:'Cairo',sans-serif;
 
-    font-size:clamp(30px,5vw,60px);
+    font-size:clamp(20px,5vw,50px);
 
     line-height:1.8;
 
