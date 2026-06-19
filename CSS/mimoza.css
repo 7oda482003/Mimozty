@@ -163,7 +163,7 @@
     grid-template-columns: 1fr 2px 3fr;
     gap: 20px;
     border: 1px solid #ffd6de;
-    box-shadow: 0 0 3px black;
+    box-shadow: 0 0 3px #c77c7c;
 }
 .rounded hr {
     background-color: white;
@@ -183,8 +183,7 @@
     border-radius: 8px;
     text-align: center;
     border: 1px solid #ffd6de;
-    box-shadow: inset 0 0 12px black;
-    /* box-shadow: 0 10px 25px rgba(255, 182, 193, 0.25); */
+    box-shadow: inset 0 0 12px #c77c7c;
 }
 .for-me p {
     font-family: "poppins", sans-serif;
