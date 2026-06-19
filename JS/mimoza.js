@@ -603,6 +603,8 @@ saveMemoryBtn.addEventListener("click", async () => {
 
 
 
+
+
 // اضافة الذكرى في المربع
 function createMemoryButton(memory, memoryId){
 
@@ -859,7 +861,7 @@ async function loadMemories(){
 
     };
 
-    updateStoryCount();
+    // updateStoryCount();
     setTimeout(()=>{
 
         document.getElementById(
