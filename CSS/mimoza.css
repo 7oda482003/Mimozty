@@ -373,7 +373,10 @@
     width: 100%;
     height: fit-content;
     text-align: center;
-    margin: 10px 0;
+    margin: 3px 0;
+    padding: 0 5px 5px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px black, inset 0 0 5px rgb(168, 87, 87);
 }
 .our-story {
     display: flex;
@@ -444,6 +447,8 @@
     align-items: center;
     justify-content: center;
     background: #e2acac;
+    color: #800020;
+    box-shadow: 0 0 5px #413a3a;
 }
 
 #addMemoryBtn {
