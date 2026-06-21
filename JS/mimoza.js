@@ -15,6 +15,9 @@ import {
 import {
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import{
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 
 let isAdmin = false;
@@ -70,7 +73,7 @@ async function checkLogin(){
         document.getElementById("login-screen").style.display = "none";
 
         document.getElementById("website-content").style.display = "block";
-        sessionStorage.setItem("username", username);
+        localStorage.setItem("username", username);
         loadMemories();
         fetch(
         `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
@@ -87,6 +90,25 @@ async function checkLogin(){
     }
 
 }
+
+onAuthStateChanged(auth,(user)=>{
+    if(user){
+        document.getElementById("login-screen").style.display = "none";
+        
+        document.getElementById("website-content").style.display = "block";
+        
+
+        isAdmin = 
+        user.email === "محمود@mimoza.com";
+
+        loadMemories();
+
+    }else{
+        document.getElementById("login-screen").style.display = "flex";
+        
+        document.getElementById("website-content").style.display = "none";
+    }
+});
 
 
 window.checkLogin = checkLogin;
@@ -407,8 +429,7 @@ if(addTextBtn){
         div.innerHTML = `
             <textarea
             class="extraText"
-            placeholder="النص الإضافي">
-            </textarea>
+            placeholder="النص الإضافي"></textarea>
         `;
 
 
@@ -954,9 +975,7 @@ function createMemoryButton(memory, memoryId){
 
                             <textarea
                             class="extraText"
-                            placeholder="النص الإضافي">
-                            ${item.value}
-                            </textarea>
+                            placeholder="النص الإضافي">${item.value}</textarea>
 
 
                             <button

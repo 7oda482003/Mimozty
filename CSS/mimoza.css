@@ -156,7 +156,7 @@
     width: 100%;
     height: fit-content;
     padding: 8px 10px;
-    margin: 4px 0;
+    margin: 3px 0;
     background-color: #fffafc;
     border-radius: 8px;
     display: grid;
@@ -178,7 +178,7 @@
 .for-me {
     width: 100%;
     padding: 10px;
-    margin: 3px 0;
+    margin: 2px 0;
     background-color: #fffafc;
     border-radius: 8px;
     text-align: center;
@@ -480,6 +480,7 @@
     overflow-y:auto;
     position:relative;
     padding:20px;
+    box-shadow: inset 0 0 10px #214945;
 }
 
 /* زر الغلق */
@@ -538,19 +539,27 @@
     padding:15px;
     border:1px solid #ddd;
     border-radius:10px;
+    width: 100%;
 }
 
 .memory-form textarea{
     min-height:120px;
+    margin: 5px 0;
 }
 
 .memory-form button{
-    padding:12px;
+    padding: 8px;
     border:none;
-    border-radius:10px;
+    border-radius:8px;
     cursor:pointer;
-    color: white;
+    color: #f13268;
+    background-color: #d4a2b0;
+}
+#saveMemoryBtn {
+    padding:12px;
     background-color: #f13268;
+    font-size: 20px;
+    color: white;
 }
 
 #extraImagesContainer {
@@ -561,12 +570,19 @@
     width: 100%;
     margin: 5px 0;
 }
+.extra-image-item {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+}
 .add-buttons {
     width: 100%;
 }
 .add-buttons button {
     width: 49%;
     background: #da7693;
+    color: white;
 }
 
 .admin-buttons,
@@ -586,6 +602,7 @@
     border: none;
     border-radius: 6px;
     margin-top: 10px;
+    box-shadow: inset 0 0 5px rgb(62 56 56), 0 0 5px #000000;
 }
 
 .deleted-memory {
@@ -658,32 +675,32 @@
     text-align:center;
     color:white;
     border-radius:20px;
-    background:rgba(255,255,255,.08);
+    background:white;
     backdrop-filter:blur(15px);
-    box-shadow:0 0 40px rgba(255,255,255,.15);
-    height: 60vh;
+    box-shadow:inset 0 0 20px black;
+    height: 70vh;
     align-items: center;
     justify-content: center;
     display: flex;
 }
 
 
-.gift-box h2{
+.gift-box h1{
     font-family:'Cairo',sans-serif;
 
-    font-size:clamp(20px,5vw,50px);
+    font-size:clamp(30px,5vw,60px);
 
     line-height:1.8;
 
-    color: #ddd;
+    color: #10937f;
 }
 
-.gift-box h4 {
+.gift-box h3 {
     position: absolute;
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
-    color: #00fffa;
+    color: #2d4242;
 }
 
 #closeGiftOverlay{
@@ -692,7 +709,7 @@
     right:20px;
     border:none;
     background:none;
-    color:white;
+    color:black;
     cursor:pointer;
     font-size:24px;
 }

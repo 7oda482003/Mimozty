@@ -1,7 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 
 import {
-  getAuth
+  getAuth,
+  setPersistence,
+  browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js"
 
 
@@ -30,6 +32,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+
+setPersistence(
+  auth,
+  browserSessionPersistence
+)
 
 export const db = getFirestore(app);
 
