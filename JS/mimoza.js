@@ -442,7 +442,17 @@ saveMemoryBtn.addEventListener("click", async () => {
     if(editingMemoryId){
         console.log("قبل التعديل", editingMemoryId);
         saveMemoryBtn.disabled = true;
-        saveMemoryBtn.textContent = "جاري حفظ التعديل...";
+        let dots = 0;
+        const loadingInterval =
+        setInterval(()=>{
+            dots++;
+            if(dots > 3){
+                dots = 1;
+            }
+            saveMemoryBtn.textContent =
+            "جاري حفظ التعديل" +
+            ".".repeat(dots);
+        },500);
         const updatedExtraContent = [];
         const items =
         document.querySelectorAll(
@@ -569,8 +579,10 @@ saveMemoryBtn.addEventListener("click", async () => {
                 .join("")
             }
         `;
+
+        clearInterval(loadingInterval);
+
         saveMemoryBtn.disabled = false;
-        saveMemoryBtn.textContent = "حفظ التعديل";
         alert("تم تعديل الذكرى");
         document.getElementById(
             "popupTemplete"
@@ -609,7 +621,17 @@ saveMemoryBtn.addEventListener("click", async () => {
         }
     }
     saveMemoryBtn.disabled = true;
-    saveMemoryBtn.textContent = "جاري الحفظ...";
+    let dots = 0;
+        const loadingInterval =
+        setInterval(()=>{
+            dots++;
+            if(dots > 3){
+                dots = 1;
+            }
+            saveMemoryBtn.textContent =
+            "جاري حفظ الذكرى" +
+            ".".repeat(dots);
+        },500);
     try{
         let mainImageUrl = "";
         if(mainImage){
@@ -705,8 +727,9 @@ saveMemoryBtn.addEventListener("click", async () => {
                 `تم اضافة ذكرى جديدة للموقع ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \n الإسم: ${memoryName} \nالوقت: ${time}`
             )
         );
-        alert("تم حفظ الذكرى ❤️");
+        clearInterval(loadingInterval);
         saveMemoryBtn.disabled = false;
+        alert("تم حفظ الذكرى ❤️");
         saveMemoryBtn.textContent = "إضافة الذكرى";
         document.getElementById("popupTemplete").style.display = "none";
         document.getElementById("memoryName").value = "";
@@ -721,6 +744,7 @@ saveMemoryBtn.addEventListener("click", async () => {
             preview.style.display = "none";
         }
     }catch(error){
+        clearInterval(loadingInterval);
         console.error(error);
         saveMemoryBtn.disabled = false;
         saveMemoryBtn.textContent = "إضافة الذكرى";
