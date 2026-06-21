@@ -176,20 +176,23 @@
                             <input type="text" id="memoryTitle" placeholder="عنوان الذكرى">
                             <textarea id="memoryText" placeholder="وصف الذكرى"></textarea>
 
+                            <img id="currentMainImage" style="max-width: 100%; display: none; margin-top: 10px;">
                             <input type="file" id="memoryImage" accept="image/*">
                             <div id="extraImagesContainer"></div>
-                            <button type="button" id="addImageBtn">
-                                إضافة صورة أخرى
-                            </button>
+                            <div class="add-buttons">
+                                <button type="button" id="addImageBtn">
+                                    إضافة صورة
+                                </button>
+                                <button type="button" id="addTextBtn">
+                                    إضافة كابشن
+                                </button>
+                            </div>
                             <button id="saveMemoryBtn">
                                 إضافة الذكرى
                             </button>
 
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
             <div class="for-me">

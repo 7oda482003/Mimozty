@@ -561,8 +561,16 @@
     width: 100%;
     margin: 5px 0;
 }
+.add-buttons {
+    width: 100%;
+}
+.add-buttons button {
+    width: 49%;
+    background: #da7693;
+}
 
-.admin-buttons {
+.admin-buttons,
+.user-button {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -570,6 +578,7 @@
 }
 .admin-delete-memory,
 .hide-memory,
+.edit-memory,
 .delete-memory {
     padding: 10px;
     color: white;
