@@ -467,7 +467,7 @@ saveMemoryBtn.addEventListener("click", async () => {
         const loadingInterval =
         setInterval(()=>{
             dots++;
-            if(dots > 3){
+            if(dots > 4){
                 dots = 1;
             }
             saveMemoryBtn.textContent =
@@ -646,7 +646,7 @@ saveMemoryBtn.addEventListener("click", async () => {
         const loadingInterval =
         setInterval(()=>{
             dots++;
-            if(dots > 3){
+            if(dots > 4){
                 dots = 1;
             }
             saveMemoryBtn.textContent =
@@ -939,7 +939,8 @@ function createMemoryButton(memory, memoryId){
                             src="${item.value}"
                             class="edit-preview"
                             style="
-                            width:100px;
+                            width:200px;
+                            height:200px;
                             display:block;
                             margin:10px 0;
                             ">

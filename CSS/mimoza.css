@@ -558,7 +558,7 @@
 #saveMemoryBtn {
     padding:12px;
     background-color: #f13268;
-    font-size: 20px;
+    font-size: 15px;
     color: white;
 }
 
@@ -575,6 +575,12 @@
     align-items: flex-end;
     justify-content: center;
     flex-direction: column;
+}
+.it-preview {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: 10px 0;
 }
 .add-buttons {
     width: 100%;
