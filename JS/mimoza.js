@@ -247,7 +247,7 @@ videos.forEach(video => {
 // العمر 
 function calculateAge() {
 
-    const birthDate = new Date(2007, 1, 18, 12, 0, 0); // عدّل هنا تاريخ ووقت الميلاد
+    const birthDate = new Date(2007, 1, 18, 8, 0, 0); // عدّل هنا تاريخ ووقت الميلاد
 
     const now = new Date();
 
@@ -1658,7 +1658,7 @@ whyLove.addEventListener("click", () => {
         fetch(
             `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
             encodeURIComponent(
-                `تم فتح الرسالة السرية ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \nالوقت: ${time}`
+                `تم فتح ليه بتحبها  ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \nالوقت: ${time}`
             )
         );
 });

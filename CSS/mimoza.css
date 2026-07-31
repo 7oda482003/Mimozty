@@ -855,6 +855,12 @@
     font-size: 18px;
     color: #135850;
 }
+
+.message-card span {
+    font-size: 30px;
+    font-weight: 600;
+    color: #093530;
+}
 .four {
     background-color: #b03a5b24;
     border-radius: 10px;
