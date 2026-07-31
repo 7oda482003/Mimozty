@@ -77,7 +77,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../images/333.jpg");
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url("../images/222.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -770,7 +770,7 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin: 60px 0;
+    margin: 40px 0;
     background:linear-gradient(135deg,#fff7f9,#ffe9ef);
     box-shadow: 0 0 70px #b23a486e;
     color: #cb3838;
@@ -842,6 +842,10 @@
     font-size: 50px;
     color: #b3224b;
 }
+.message-card h2 {
+    font-size: 30px;
+    color: #93304c;
+}
 
 .message-card h3 {
     color: #cc6d78;
@@ -850,6 +854,12 @@
 .message-card p {
     font-size: 18px;
     color: #135850;
+}
+.four {
+    background-color: #b03a5b24;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px 0;
 }
 
 

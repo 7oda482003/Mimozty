@@ -1,0 +1,888 @@
+/* Reset */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:"Cairo",sans-serif;
+
+    background:linear-gradient(135deg,#fff0f3,#ffe4ec);
+
+    min-height:100vh;
+
+    color:#111;
+
+    overflow-x:hidden;
+
+}
+
+/* الصفحة */
+
+.page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    margin:auto;
+
+    padding:80px 0;
+
+}
+
+/* عنوان الصفحة */
+
+.hero{
+    width: 100%;
+
+    text-align:center;
+
+}
+
+.hero h1{
+
+    color:#800020;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    line-height:2;
+
+    font-size:1.2rem;
+
+    color:#444;
+
+}
+
+
+/* ===========================
+   Progress Bar
+=========================== */
+
+.progress-container{
+
+    width:90%;
+
+    margin:40px auto 70px;
+
+}
+
+.progress-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+    font-weight:700;
+
+    color:#800020;
+
+    font-size:18px;
+
+}
+
+.progress-bar{
+
+    width:100%;
+
+    height:12px;
+
+    background:#f3d9e2;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+    box-shadow:
+        inset 0 2px 5px rgba(0,0,0,.08);
+
+}
+
+.progress-fill{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:linear-gradient(
+        90deg,
+        #800020,
+        #a61b4d,
+        #d14d72
+    );
+
+    transition:width .7s ease;
+
+}
+
+
+/* مكان البطاقات */
+
+.cards-container{
+    width: 95%;
+
+    display:grid;
+
+    grid-template-columns:repeat(4, 1fr);
+
+    gap:20px;
+
+}        
+
+/* ===========================
+   الخلفية الاحترافية
+=========================== */   
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-1;
+}    
+
+/* الدوائر الضبابية */
+
+.blob{
+
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:.45;
+    animation:float 12s ease-in-out infinite;
+
+}    
+
+.blob1{
+
+    width:420px;
+    height:420px;
+
+    background:#ffb3c7;
+
+    top:-120px;
+    left:-80px;
+
+}    
+
+.blob2{
+
+    width:350px;
+    height:350px;
+
+    background:#ffd6e5;
+
+    right:-80px;
+    top:180px;
+
+}    
+
+.blob3{
+
+    width:300px;
+    height:300px;
+
+    background:#ffffff;
+
+    bottom:-100px;
+    left:35%;
+
+}    
+
+/* القلوب */
+
+.heart{
+
+    position:absolute;
+    font-size:32px;
+    opacity:.18;
+
+    animation:floatHeart 5s linear infinite;
+
+}    
+
+.heart1{
+
+    top:15%;
+    left:12%;
+
+}    
+
+.heart2{
+
+    right:15%;
+    top:55%;
+
+}    
+
+.heart3{
+
+    bottom:15%;
+    left:70%;
+
+}    
+
+/* الحركة */
+
+@keyframes float{
+
+    0%{
+
+        transform:translate(0,0);
+
+    }    
+
+    50%{
+
+        transform:translate(40px,-30px);
+
+    }    
+
+    100%{
+
+        transform:translate(0,0);
+
+    }    
+
+}    
+
+@keyframes floatHeart{
+
+    0%{
+
+        transform:translateY(0) scale(1);
+
+    }    
+
+    50%{
+
+        transform:translateY(-25px) scale(1.1);
+
+    }        
+    
+    100%{
+        
+        transform:translateY(0);
+        
+    }        
+    
+}        
+
+/* البطاقة */
+
+.love-card{
+
+    width: 95%;
+    height: 360px;
+
+    margin: auto;
+
+    background: rgba(255,255,255,.18);
+
+    border: 1px solid rgba(255,255,255,.35);
+
+    backdrop-filter: blur(25px);
+
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow:
+        0 8px 32px rgba(128,0,32,.12);
+
+    transition: .4s ease;    
+
+    overflow: hidden;
+
+    position: relative;
+    cursor: pointer;
+}    
+
+
+
+
+
+/* لمعة تمر على البطاقة */
+
+.love-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-150%;
+
+    left:-40%;
+
+    width:80px;
+
+    height:500px;
+
+    background:rgba(255,255,255,.35);
+
+    transform:rotate(25deg);
+
+    transition:1s;
+
+}    
+
+.love-card:hover::before{
+
+    left:140%;
+
+}    
+
+/* عند مرور الماوس */
+
+.love-card:hover{
+
+    transform:
+
+    translateY(-12px)
+    scale(1.03);
+
+    box-shadow:
+
+    0 20px 40px rgba(128,0,32,.15);
+
+}    
+
+/* الأيقونة */
+
+.card-icon{
+    font-size:55px;
+    color: #800020;
+    margin-bottom: 20px;
+}    
+
+.card-icon i {
+    transition: 3s;
+}    
+
+.love-card:hover .card-icon i {
+    transform: scale(1.15);
+}    
+
+/* العنوان */
+
+.love-card h2{
+
+    color:#800020;
+
+    margin-bottom:15px;
+
+    font-size:30px;
+
+}    
+
+/* النص */
+
+.love-card p{
+
+    color:#555;
+
+    line-height:1.8;
+
+}    
+
+
+
+/* ===== Flip Card ===== */
+
+.love-card{
+
+    perspective:1000px;
+
+}    
+
+.card-inner{
+
+    position:relative;
+
+    width:100%;
+    height:100%;
+
+    transition:transform 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+
+    transform-style:preserve-3d;
+
+}    
+
+.love-card.flip .card-inner{
+
+    transform:rotateY(180deg);
+
+}    
+
+.card-front,
+.card-back{
+
+    text-align: center;
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:30px;
+
+    backface-visibility:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:25px;
+
+}    
+
+.card-back{
+
+    transform:rotateY(180deg);
+
+    background:rgba(255,255,255,.22);
+
+    backdrop-filter:blur(25px);
+
+    color:#333;
+
+}    
+
+
+
+
+
+
+
+/* البداية */
+
+body{
+    opacity:0;
+    transition:opacity .8s ease;
+}
+
+body.loaded{
+    opacity:1;
+}
+
+
+.hidden{
+    opacity:0;
+    transform:translateY(30px);
+}
+
+/* ظهور العنوان */
+
+.hero.show{
+    animation:fadeUp .9s ease forwards;
+}
+
+/* ظهور شريط التقدم */
+
+.progress-container.show{
+    animation:fadeUp .9s ease .3s forwards;
+}
+
+/* ظهور البطاقات */
+
+.love-card{
+    opacity:0;
+    transform:translateY(40px) scale(.95);
+}
+
+.love-card.show{
+    animation:cardAppear .6s ease forwards;
+}
+
+@keyframes fadeUp{
+    
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+    
+}
+
+@keyframes cardAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+
+
+@media screen and (max-width: 767px) {
+    .cards-container{
+        grid-template-columns:repeat(1, 1fr);
+    }
+}
+
+.love-card{
+
+    opacity:0;
+
+    transform:
+        translateY(20px)
+        scale(.85);
+
+    transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.175,.885,.32,1.275);
+
+}
+
+.love-card.show{
+
+    opacity:1;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+/* ===========================
+   Hearts Effect
+=========================== */
+
+.flying-heart{
+
+    position:absolute;
+
+    font-size:22px;
+
+    pointer-events:none;
+
+    user-select:none;
+
+    animation:flyHeart 1.4s ease-out forwards;
+
+    z-index:999;
+
+}
+
+@keyframes flyHeart{
+
+    0%{
+
+        opacity:1;
+        transform:translate(0,0) scale(.6);
+
+    }
+
+    100%{
+
+        opacity:0;
+        transform:
+            translate(var(--x),-140px)
+            rotate(var(--rotate))
+            scale(1.4);
+
+    }
+
+}
+
+@keyframes shake{
+
+0%,100%{
+transform:translateX(0);
+}
+
+25%{
+transform:translateX(-6px);
+}
+
+50%{
+transform:translateX(6px);
+}
+
+75%{
+transform:translateX(-6px);
+}
+
+}
+
+.shake{
+
+animation:shake .4s;
+
+}
+
+
+#toast{
+
+text-align: center;
+
+width: fit-content;
+
+position:fixed;
+
+top:30px;
+
+left:50%;
+
+transform:translateX(-50%) translateY(100px);
+
+background:#800020;
+
+color:white;
+
+padding:10px 15px;
+
+border-radius:40px;
+
+opacity:0;
+
+transition:.4s;
+
+z-index:9999;
+
+font-size:15px;
+
+}
+
+#toast.show{
+
+opacity:1;
+
+transform:translateX(-50%) translateY(0);
+
+}
+
+/* ===========================
+   Final Message
+=========================== */
+
+.final-message{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.4s;
+
+    z-index:99999;
+
+}
+
+.final-message.show{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+
+.final-message.show{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+.final-box{
+
+    width:90%;
+    max-width:700px;
+
+    height:90vh;
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:30px;
+
+    box-sizing:border-box;
+
+    overflow-y:auto;
+
+    text-align:center;
+
+    animation:popup .5s;
+
+    position:relative;
+
+    scrollbar-width:thin;
+
+}
+
+@keyframes popup{
+
+from{
+
+transform:scale(.8);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+
+#typewriter{
+
+    text-align:right;
+
+    white-space:pre-line;
+
+    line-height:2.2;
+
+    font-size:18px;
+
+    color:#333;
+
+    margin:25px 0 60px;
+
+}
+
+#closeFinal{
+
+    position:sticky;
+
+    bottom:0;
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#800020;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+}
+
+/* Ripple Effect */
+
+.ripple{
+
+    position:absolute;
+
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+
+    background:rgba(128,0,32,.25);
+
+    transform:translate(-50%,-50%) scale(0);
+
+    animation:ripple .6s ease-out;
+
+    pointer-events:none;
+
+}
+
+@keyframes ripple{
+
+    to{
+
+        transform:translate(-50%,-50%) scale(12);
+
+        opacity:0;
+
+    }
+
+}
+
+.letter-section{
+
+    margin-bottom:50px;
+
+}
+
+.letter-section p{
+
+    line-height:2.2;
+
+    font-size:18px;
+
+    color:#333;
+
+    text-align:right;
+
+}
+
+.letter-section h2{
+
+    color:#800020;
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+}
+
+.letter-image{
+
+    width:100%;
+
+    border-radius:20px;
+
+    display:block;
+
+}

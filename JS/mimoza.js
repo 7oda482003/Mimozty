@@ -1639,3 +1639,42 @@ overlay.addEventListener("click", (e) => {
 
 console.log("story loaded")
 
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+// لماذا أحبها
+const whyLove = document.getElementById("whyLove");
+const overlayLove = document.getElementById("overlayLove");
+const closeBtn2 = document.getElementById("closeBtn2");
+
+whyLove.addEventListener("click", () => {
+    overlayLove.classList.add("show");
+    document.body.style.overflow = "hidden";
+    const time = new Date().toLocaleString("ar-EG");
+        fetch(
+            `https://api.telegram.org/bot${Bot_Token}/sendMessage?chat_id=${Chat_Id}&text=` +
+            encodeURIComponent(
+                `تم فتح الرسالة السرية ✅ \n بواسطة: ${isAdmin? "الأدمن" : "المستخدم"} \nالوقت: ${time}`
+            )
+        );
+});
+
+closeBtn2.addEventListener("click", () => {
+    overlayLove.classList.remove("show");
+    document.body.style.overflow = "auto";
+});
+
+/* قفل عند الضغط خارج المربع */
+overlayLove.addEventListener("click", (e) => {
+    if(e.target === overlayLove){
+        overlayLove.classList.remove("show");
+        document.body.style.overflow = "auto";
+    }
+});
+
+console.log("story loaded")
+
