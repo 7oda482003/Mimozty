@@ -727,12 +727,12 @@
     font-family:'Cairo',sans-serif;
 
     font-size:clamp(30px,5vw,60px);
-
     line-height:1.8;
-
+    
     color: #10937f;
     width: 100%;
     word-break: break-word;
+    white-space: pre-line;
 }
 
 .gift-box h3 {
@@ -753,12 +753,6 @@
     cursor:pointer;
     font-size:24px;
 }
-
-
-
-
-
-
 
 #passwordSection{
     display: flex;
